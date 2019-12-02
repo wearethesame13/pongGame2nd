@@ -39,3 +39,13 @@ void cPaddle::moveDown()
 	y++;
 }
 
+void cPaddle::moveLeft()
+{
+	x--;
+}
+
+void cPaddle::moveRight()
+{
+	x++;
+}
+

@@ -46,12 +46,13 @@ cGameManager::cGameManager(int w, int h)
 	srand((unsigned int)time(NULL)); // thoi gian ngau nhien
 	quit = false;
 	up1 = 'w'; up2 = 'i'; // phim tat w cho up player 1, i cho up player 2
+	left1 = 'a'; right1 = 'd';
 	down1 = 's'; down2 = 'k'; //phim  tat s cho down player 1, k cho down player 2
 	score1 = score2 = 0;   // set diem ca 2 player = 0
 	width = w; height = h;
-	paddleLength = 6;
+	paddleLength = 7;
 	ball = new cBall(w / 2, h / 2);  //dat Ball o chinh giua ban
-	player1 = new cPaddle(1, h / 2 - 3); //dat vi tri ban dau cua vot player 1
+	player1 = new cPaddle(w/2, h-2); //dat vi tri ban dau cua vot player 1
 	player2 = new cPaddle(w - 2, h / 2 - 3); //dat vi tri ban dau cua vot player 2
 }
 
@@ -122,7 +123,7 @@ void cGameManager::Draw()
 				cout << "O"; //ball   #ve vi tri bong
 				TextColor(0);
 			}
-			else if (j == player1x && i >= player1y && i <= player1y + paddleLength - 1)
+			else if (i == player1y && j >= player1x-paddleLength/2 && j <= player1x + paddleLength/2)
 			{
 				TextColor(11);
 				cout << "\xDB"; //player1    //ve vi tri nguoi choi 1
@@ -175,7 +176,7 @@ void  cGameManager::CheckInput1()
 		char current = _getch(); //nhan du lieu 
 		if (current == up1)
 		if (player1y > 0)
-			player1->moveUp(); //neu player1y >0 thi co the MoveUp
+			player1->moveUp(); //neu player1y > 0 thi co the MoveUp
 
 		if (current == up2)
 		if (player2y > 0)
@@ -188,6 +189,14 @@ void  cGameManager::CheckInput1()
 		if (current == down2)
 		if (player2y + paddleLength - 1  < height - 1)
 			player2->moveDown();
+
+		if (current == left1)
+		if (player1x - paddleLength / 2 > 0)
+		player1->moveLeft();
+
+		if (current == right1)
+		if (player1x + paddleLength / 2 < width-1)
+		player1->moveRight();
 
 		if (ball->getDirection() == STOP) //neu ball dung lai thi tao vi tri ngau nhien cho ball
 			ball->randomDirection();

@@ -15,7 +15,8 @@ public:
 	int getY();
 	void moveUp();
 	void moveDown();
-	
+	void moveLeft();
+	void moveRight();
 };
 
 #endif

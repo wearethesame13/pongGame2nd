@@ -10,7 +10,7 @@ private:
 	int width, height; // chieu rong va chieu cao
 	int score1, score2;  // diem nguoi choi
 	int paddleLength;
-	char up1, down1, up2, down2;
+	char up1, down1,left1,right1, up2, down2;
 	bool quit;            // thoat game
 	cBall * ball;
 	cPaddle *player1;     // nguoi choi 1

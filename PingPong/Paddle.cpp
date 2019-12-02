@@ -41,11 +41,11 @@ void cPaddle::moveDown()
 
 void cPaddle::moveLeft()
 {
-	x--;
+	x=x-3;
 }
 
 void cPaddle::moveRight()
 {
-	x++;
+	x=x+3;
 }
 

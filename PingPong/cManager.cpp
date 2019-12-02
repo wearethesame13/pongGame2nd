@@ -50,7 +50,7 @@ cGameManager::cGameManager(int w, int h)
 	down1 = 's'; //phim  tat s cho down player 1, k cho down player 2
 	score1 = score2 = 0;   // set diem ca 2 player = 0
 	width = w; height = h;
-	paddleLength = 7;
+	paddleLength = 10;
 	ball = new cBall(w / 2, h / 2);  //dat Ball o chinh giua ban
 	player1 = new cPaddle(w/2, h-2); //dat vi tri ban dau cua vot player 1
 }
@@ -287,11 +287,11 @@ void cGameManager::Logic()
 	int player1y = player1->getY();
 
 	//left paddle
-	for (int i = 0; i < 6; i++)
-	if (ballx == player1x + 1)   //neu ball canh benh player1
-	if (bally == player1y + i)
-		ball->changeDirection((eDir)((rand() % 3) + 4)); //chuyen huong bong sang vi tri ngau nhien qua phai
-
+	//for (int i = 0; i < 6; i++)
+	if (bally == player1y -1)   //neu ball canh benh player1
+	if (ballx >= player1x - paddleLength/2 && ballx <= player1x +paddleLength/2)
+		//ball->changeDirection((eDir)((rand() % 3) + 4)); //chuyen huong bong sang vi tri ngau nhien qua phai
+		ball->changeDirection(ball->getDirection() == DOWNLEFT ? UPLEFT : UPRIGHT);
 	//top wall
 	if (bally == 0)
 		ball->changeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);

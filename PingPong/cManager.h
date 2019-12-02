@@ -23,7 +23,7 @@ public:
 	void ScoreUp(cPaddle * player);
 	void Draw();
 	void CheckInput1();
-	void CheckInput2();
+	//void CheckInput2();
 	void PrintUI(int);
 	void Logic();
 	void PrintResult(int);

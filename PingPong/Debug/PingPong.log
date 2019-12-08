@@ -1,2 +1,7 @@
-﻿  cManager.cpp
-  PingPong.vcxproj -> D:\đạt\pongGame2nd\Debug\1712923_1712929_PingPong.exe
+﻿  Brick.cpp
+D:\THOOP\PingPong\cManager.h(24,7): error C2143: syntax error: missing ';' before '*'
+D:\THOOP\PingPong\cManager.h(24,7): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  cManager.cpp
+  Main.cpp
+  Generating Code...
+D:\THOOP\PingPong\cManager.h(24,38): error C2238: unexpected token(s) preceding ';'

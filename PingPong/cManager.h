@@ -2,33 +2,44 @@
 #define __CMANAGER_H__
 #include "Ball.h"
 #include "Paddle.h"
+#include "Brick.h"
+#include <fstream>
+#include "Wall.h"
 #include <windows.h>
 
 class cGameManager
 {
 private:
+	static const int MAX_NUMBERS_OF_BRICKS = 32;
+	static const int DELAY = 10;
+	static const int MAX_NUMBERS_OF_WALLS = 2;
+	static const int MULTIPLIER[3] = { 1, 0.5, 2 };
 	int width, height; // chieu rong va chieu cao
-	int score1, score2;  // diem nguoi choi
+	int score;  // diem nguoi choi
 	int paddleLength;
-	char up1, down1,left1,right1, up2, down2;
+	int wallLength;
+	int brickLength;
+	bool paused;
+	char left1, right1;
 	bool quit;            // thoat game
+	
 	cBall * ball;
 	cPaddle *player1;     // nguoi choi 1
-	cPaddle *player2;     // nguoi choi 2
-
+	Brick* bricks[MAX_NUMBERS_OF_BRICKS];
+	Wall* walls[MAX_NUMBERS_OF_WALLS];
 public:
 	cGameManager(int w, int h);
 	~cGameManager();
+	void LoadSavedGame();
 	void Restart();
-	void ScoreUp(cPaddle * player);
+	void ScoreUp(int addScore);
 	void Draw();
 	void CheckInput1();
-	//void CheckInput2();
 	void PrintUI(int);
 	void Logic();
-	void PrintResult(int);
+	void PrintResult();
+	void Pause();
 	void Run1();
-	void Run2();
 };
 //hàm hỗ trợ Menu lua chon nguoi choi
 void Menu();
@@ -40,6 +51,6 @@ void removeCursor();
 void gotoxy(int x, int y);
 void TextColor(int x);
 void WindowInit();
-
+bool isFileEmpty(ifstream& pFile);
 
 #endif

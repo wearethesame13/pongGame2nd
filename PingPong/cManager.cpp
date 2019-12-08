@@ -40,24 +40,60 @@ void WindowInit()
 	removeCursor();
 }
 
+bool isFileEmpty(ifstream& pFile)
+{
+	return pFile.peek() == ifstream::traits_type::eof();
+}
+
 // quan ly luat choi, diem so
 cGameManager::cGameManager(int w, int h)
 {
 	srand((unsigned int)time(NULL)); // thoi gian ngau nhien
 	quit = false;
-	up1 = 'w'; // phim tat w cho up player 1, i cho up player 2
 	left1 = 'a'; right1 = 'd';
-	down1 = 's'; //phim  tat s cho down player 1, k cho down player 2
-	score1 = score2 = 0;   // set diem ca 2 player = 0
+	score = 0;   // set diem ca 2 player = 0
 	width = w; height = h;
 	paddleLength = 10;
+	wallLength = 10;
+	brickLength = 5;
+	paused = false;
 	ball = new cBall(w / 2, h / 2);  //dat Ball o chinh giua ban
 	player1 = new cPaddle(w/2, h-2); //dat vi tri ban dau cua vot player 1
+	int k = 0;
+	for (int i = 0; i < 4; i++) // khoi tao day brick
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			bricks[k] = new Brick(j * brickLength, i*2);
+			srand((unsigned)time(0));
+			int a;
+			a = (rand() % 3) + 1;
+			bricks[i]->setMultiplier(a);
+			k++;
+		}
+	}
+	
 }
 
 cGameManager::~cGameManager()
 {
 	delete ball, player1;
+	for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++)
+	{
+		delete bricks[i];
+	}
+}
+void cGameManager::LoadSavedGame()
+{
+	ifstream fileIn("SaveGame.txt", ios::in);
+	if (isFileEmpty(fileIn)==true)
+	{
+		return;
+	}
+	else
+	{
+		
+	}
 }
 void cGameManager::Restart()
 {
@@ -69,13 +105,9 @@ void cGameManager::Restart()
 
 }
 //ham tinh diem
-void cGameManager::ScoreUp(cPaddle * player)
+void cGameManager::ScoreUp(int addScore)
 {
-	if (player == player1)
-		score1++;
-	//tro ve vi tri mac dinh
-	ball->Reset();
-	player1->Reset();
+	score += addScore;	
 }
 
 //ve vi tri cho bong va vot
@@ -94,40 +126,52 @@ void cGameManager::Draw()
 	{
 		for (int j = 0; j < width; j++)
 		{
-
 			// lay toa do cua ball va player
 			int ballx = ball->getX();
 			int bally = ball->getY();
 			int player1x = player1->getX();
 			int player1y = player1->getY();
-
-
 			if (j == 0)
 			{
 				TextColor(11);
-				cout << "\xB2"; //ve khung bong ban ben trai
+				cout << "\xB2"; //ve khung ben trai
 				TextColor(0);
 			}
-
+			for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++) //ve gach
+			{
+				if (bricks[i]->isDestroyed()==true)
+				{
+					continue;
+				}
+				int brickx = bricks[i]->getX();
+				int bricky = bricks[i]->getY();
+				if ((i == bricky && j >= brickx - brickLength / 2 && j <= brickx + brickLength / 2))
+				{
+					TextColor(11);
+					cout << "\xDB";
+					TextColor(0);
+				}
+			}
 			if (ballx == j && bally == i)
 			{
 				TextColor(11);
 				cout << "O"; //ball   #ve vi tri bong
 				TextColor(0);
 			}
+			
 			else if (i == player1y && j >= player1x-paddleLength/2 && j <= player1x + paddleLength/2)
 			{
 				TextColor(11);
-				cout << "\xDB"; //player1    //ve vi tri nguoi choi 1
+				cout << "\xDB"; //player   //ve vi tri nguoi choi 
 				TextColor(0);
 			}
 			else
 				cout << " ";
 
-			if (j == width - 1)  //ve khung bong ban ben phai
+			if (j == width - 1)  //ve khung ben phai
 			{
 				TextColor(11);
-				cout << "\xB2"; //ve khung bong ban ben trai
+				cout << "\xB2"; //ve khung ben phai
 				TextColor(0);
 			}
 		}
@@ -135,11 +179,10 @@ void cGameManager::Draw()
 	}
 
 	TextColor(11);
-	for (int i = 0; i < width + 2; i++)
+	for (int i = 0; i < width + 2; i++) // ve khung duoi
 		cout << "\xB2";
 	TextColor(0);
 	cout << endl;
-
 }
 
 void  cGameManager::CheckInput1()
@@ -168,112 +211,48 @@ void  cGameManager::CheckInput1()
 
 		if (current == 'q') //quit game
 			quit = true;
+		if (current == 'esc') // pause game
+		{
+			paused = true;
+		}
 	}
 
 }
-
-//void  cGameManager::CheckInput2()
-//{
-//	ball->Move(); //di chuyen bong
-//
-//	// lay toa do cua ball va player
-//	int ballx = ball->getX();
-//	int bally = ball->getY();
-//	int player1x = player1->getX();
-//	int player1y = player1->getY();
-//
-//	if (_kbhit())
-//	{
-//
-//		char current = _getch(); //nhan du lieu 
-//		if (current == up1)
-//		if (player1y > 0)
-//			player1->moveUp(); //neu player1y >0 thi co the MoveUp
-//
-//		if (current == down1)
-//		if (player1y + paddleLength - 1  < height - 1)
-//			player1->moveDown();
-//
-//		if (current == 'q')
-//			quit = true;
-//
-//	}
-//
-//	if (ball->getDirection() == STOP)
-//		ball->randomDirection();
-//
-//	int computerActive = rand() % 5;
-//	if (computerActive > 0)
-//	{
-//		if (ball->getDirection() == RIGHT)
-//		{
-//			if (bally > player2y + paddleLength - 1)
-//			{
-//				if (player2y + paddleLength - 1 < height - 1)
-//					player2->moveDown();
-//			}
-//			else if (bally < player2y)
-//			{
-//				if (player2y > 0)
-//					player2->moveUp();
-//			}
-//		}
-//
-//		if (ball->getDirection() == DOWNRIGHT && bally > player2y + paddleLength - 1)
-//		{
-//			if (player2y + paddleLength - 1 < height - 1)
-//				player2->moveDown();
-//		}
-//		if (ball->getDirection() == UPRIGHT && bally < player2y)
-//		{
-//			if (player2y > 0)
-//				player2->moveUp();
-//		}
-//	}
-//}
 
 void  cGameManager::PrintUI(int choose)
 {
 	TextColor(10);
 	gotoxy(width + 5, 5);
-	cout << "Player 1 's score: " << score1;
-	TextColor(11);
-	gotoxy(width + 5, 6);
-	if (choose == 1)
-		cout << "Player 2 's score: " << score2;
-	else
-		cout << "Computer's score: " << score2;
-
+	cout << "Player's score: " << score;
 	TextColor(12);
 	gotoxy(width + 5, 8);
-	cout << "Press Q key to quit game";
-
+	cout << "Press Q key to quit game"<<endl;
+	TextColor(11);
+	gotoxy(width + 5, 9);
+	cout << "Press ESC key to pause game";
 	gotoxy(width / 2 - 7, height + 3);
-	TextColor(10); cout << "PING"; TextColor(11); cout << " PONG"; TextColor(12); cout << " GAME";
+	TextColor(10); cout << "Brick"; TextColor(11); cout << " Breaker"; TextColor(12); cout << " GAME";
 	gotoxy(width / 2 - 8, height + 4);
-
 }
 
-void cGameManager::PrintResult(int choose)
+void cGameManager::PrintResult()
 {
-	
 	//Win-Lose
-	if (score1 == 5)
+	system("cls");
+	cout << "YOU WIN!!" << endl;
+	system("pause");
+	quit = true;
+}
+
+void cGameManager::Pause()
+{
+	if (paused == true)
 	{
-		system("cls");
-		cout << "Player 1 WIN!!" << endl;
+		gotoxy(width + 5, 6);
+		TextColor(12);
+		cout << "Game tam dung, nhan Enter de tiep tuc choi";
+		TextColor(0);
 		system("pause");
-		quit = true;
-	}
-	else if (score2 == 5)
-	{
-		system("cls");
-		if (choose == 1)
-			cout << "Player 2 WIN!!" << endl;
-		else
-			cout << "Computer WIN!!" << endl;
-		system("pause");
-		quit = true;
 	}
 }
 
@@ -285,10 +264,7 @@ void cGameManager::Logic()
 	int bally = ball->getY();
 	int player1x = player1->getX();
 	int player1y = player1->getY();
-
-	//left paddle
-	//for (int i = 0; i < 6; i++)
-	if (bally == player1y -1)   //neu ball canh benh player1
+	if (bally == player1y -1)   //neu ball canh benh player
 	if (ballx >= player1x - paddleLength/2 && ballx <= player1x +paddleLength/2)
 		//ball->changeDirection((eDir)((rand() % 3) + 4)); //chuyen huong bong sang vi tri ngau nhien qua phai
 		ball->changeDirection(ball->getDirection() == DOWNLEFT ? UPLEFT : UPRIGHT);
@@ -301,14 +277,28 @@ void cGameManager::Logic()
 	//left wall
 	else if (ballx == 0)
 		ball->changeDirection(ball->getDirection() == UPLEFT ? UPRIGHT : DOWNRIGHT);
+	for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++)
+	{
+		int brickx = bricks[i]->getX();
+		int bricky = bricks[i]->getY();
+		if (bally == bricky - 1)
+		{
+			if (ballx >= brickx - brickLength / 2 && ballx <= brickx + brickLength / 2)
+			{
+				ball->changeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
+				bricks[i]->setDestroyed();
+			}
+		}
+	}
 }
 
 void Menu()
 {
 	system("cls");
 	cout << "======================= MENU =====================\n\n";
-	cout << " 1. Human vs Human" << endl;
-	cout << " 2. Human vs Computer" << endl;
+	cout << "Chao mung ban den voi game Pha Gach" << endl;
+	cout << "1. Bat dau choi." << endl;
+	cout << "2. Thoat." << endl;
 	cout << "==================================================\n";
 }
 
@@ -340,22 +330,8 @@ void cGameManager::Run1()
 		Logic();
 		Draw();
 		PrintUI(1);
-		PrintResult(1);
+		PrintResult();
+		Pause();
 	}
 	
 }
-
-void cGameManager::Run2()
-{
-	Draw();
-	PrintUI(2);
-	while (!quit)
-	{
-		srand((unsigned int)time(NULL));
-		Logic();
-		Draw();
-		PrintUI(2);
-		PrintResult(2);
-	}
-}
-

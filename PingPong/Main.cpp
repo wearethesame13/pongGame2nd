@@ -14,7 +14,7 @@ int main()
 	if (choose == 1)
 		c.Run1();
 	else
-		c.Run2();
+		return EXIT_SUCCESS;
 	system("pause");
 	return 0;
 }

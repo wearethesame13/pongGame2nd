@@ -1,5 +1,6 @@
-﻿#ifndef __CMANAGER_H__
-#define __CMANAGER_H__
+﻿#ifndef __cmanager_h__
+#define __cmanager_h__
+
 #include "Ball.h"
 #include "Paddle.h"
 #include "Brick.h"
@@ -13,7 +14,7 @@ private:
 	static const int MAX_NUMBERS_OF_BRICKS = 32;
 	static const int DELAY = 10;
 	static const int MAX_NUMBERS_OF_WALLS = 2;
-	static const int MULTIPLIER[3] = { 1, 0.5, 2 };
+	float MULTIPLIER[3];
 	int width, height; // chieu rong va chieu cao
 	int score;  // diem nguoi choi
 	int paddleLength;
@@ -22,12 +23,12 @@ private:
 	bool paused;
 	char left1, right1;
 	bool quit;            // thoat game
-	
 	cBall * ball;
 	cPaddle *player1;     // nguoi choi 1
-	Brick* bricks[MAX_NUMBERS_OF_BRICKS];
-	Wall* walls[MAX_NUMBERS_OF_WALLS];
+	Brick *bricks;
+	Wall *walls;
 public:
+	
 	cGameManager(int w, int h);
 	~cGameManager();
 	void LoadSavedGame();

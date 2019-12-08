@@ -53,6 +53,11 @@ cGameManager::cGameManager(int w, int h)
 	left1 = 'a'; right1 = 'd';
 	score = 0;   // set diem ca 2 player = 0
 	width = w; height = h;
+	MULTIPLIER[0] = 1;
+	MULTIPLIER[1] = 0.5;
+	MULTIPLIER[2] = 2;
+	bricks = new Brick[MAX_NUMBERS_OF_BRICKS];
+	walls = new Wall[MAX_NUMBERS_OF_WALLS];
 	paddleLength = 10;
 	wallLength = 10;
 	brickLength = 5;
@@ -64,11 +69,13 @@ cGameManager::cGameManager(int w, int h)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			bricks[k] = new Brick(j * brickLength, i*2);
+			//bricks[k] = new Brick(j * brickLength, i*2);
+			Brick x(j * brickLength, i * 2);
+			bricks[k] = x;
 			srand((unsigned)time(0));
 			int a;
 			a = (rand() % 3) + 1;
-			bricks[i]->setMultiplier(a);
+			bricks[i].setMultiplier(a);
 			k++;
 		}
 	}
@@ -80,7 +87,7 @@ cGameManager::~cGameManager()
 	delete ball, player1;
 	for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++)
 	{
-		delete bricks[i];
+		bricks[i].~Brick();
 	}
 }
 void cGameManager::LoadSavedGame()
@@ -139,12 +146,12 @@ void cGameManager::Draw()
 			}
 			for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++) //ve gach
 			{
-				if (bricks[i]->isDestroyed()==true)
+				if (bricks[i].isDestroyed()==true)
 				{
 					continue;
 				}
-				int brickx = bricks[i]->getX();
-				int bricky = bricks[i]->getY();
+				int brickx = bricks[i].getX();
+				int bricky = bricks[i].getY();
 				if ((i == bricky && j >= brickx - brickLength / 2 && j <= brickx + brickLength / 2))
 				{
 					TextColor(11);
@@ -279,14 +286,14 @@ void cGameManager::Logic()
 		ball->changeDirection(ball->getDirection() == UPLEFT ? UPRIGHT : DOWNRIGHT);
 	for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++)
 	{
-		int brickx = bricks[i]->getX();
-		int bricky = bricks[i]->getY();
+		int brickx = bricks[i].getX();
+		int bricky = bricks[i].getY();
 		if (bally == bricky - 1)
 		{
 			if (ballx >= brickx - brickLength / 2 && ballx <= brickx + brickLength / 2)
 			{
 				ball->changeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
-				bricks[i]->setDestroyed();
+				bricks[i].setDestroyed();
 			}
 		}
 	}

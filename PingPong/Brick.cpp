@@ -35,7 +35,7 @@ int Brick::getMultiplier()
 	return multiplier;
 }
 
-int Brick::setMultiplier(int a)
+void Brick::setMultiplier(int a)
 {
 	multiplier = a;
 }

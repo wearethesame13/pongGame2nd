@@ -4,10 +4,11 @@
 Brick::Brick(int x, int y, int length, int level) :
 	x(x), y(y), length(length), level(level)
 {
-	color[0] = 2;
-	color[1] = 6;
-	color[2] = 14;
+	color[0] = 4;
+	color[1] = 2;
+	color[2] = 15;
 }
+
 
 void Brick::draw()
 {

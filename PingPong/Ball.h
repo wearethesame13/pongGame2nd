@@ -24,6 +24,7 @@ public:
 	int getX();
 	int getY();
 	eDir getDirection();
+	void setDirection(eDir dir);
 	void Move();
 	void draw();
 	void Delete();

@@ -164,6 +164,46 @@ void cGameManager::Draw()
 	ball->draw();
 	cout << endl;
 	player1->draw();
+
+	for (int i = 0; i < bricks.size(); i++)
+	{
+		if (!bricks[i]->processTouchBall(ball)) continue;
+		score++;
+		//Xoá gạch khỏi list
+		if (bricks[i]->getLevel() < 0) {
+			bricks.erase(bricks.begin() + i);
+			bricks.shrink_to_fit();
+		}
+		// Ball touch brick
+		// Bóng đang đi lên
+		if (ball->getDirection() == UP) {
+			int ran = rand() % 3 + 4;
+			if (ran == 4)
+				ball->setDirection(DOWN);
+			else if (ran == 5)
+				ball->setDirection(DOWNLEFT);
+			else if (ran == 6)
+				ball->setDirection(DOWNRIGHT);
+		}
+		else if (ball->getDirection() == UPLEFT)
+			ball->setDirection(DOWNLEFT);
+		else if (ball->getDirection() == UPRIGHT)
+			ball->setDirection(DOWNRIGHT);
+		// Bóng đang đi xuống
+		else if (ball->getDirection() == DOWN) {
+			int ran = rand() % 3 + 4;
+			if (ran == 4)
+				ball->setDirection(UP);
+			else if (ran == 5)
+				ball->setDirection(UPLEFT);
+			else if (ran == 6)
+				ball->setDirection(UPRIGHT);
+		}
+		else if (ball->getDirection() == DOWNLEFT)
+			ball->setDirection(UPLEFT);
+		else if (ball->getDirection() == DOWNRIGHT)
+			ball->setDirection(UPRIGHT);
+	}
 }
 
 void  cGameManager::CheckInput1()

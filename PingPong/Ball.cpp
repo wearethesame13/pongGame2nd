@@ -40,6 +40,11 @@ eDir cBall::getDirection()
 	return direction; 
 }
 
+void cBall::setDirection(eDir dir)
+{
+	direction = dir;
+}
+
 void cBall::Move() //ham di chuyen bong
 {
 	switch (direction)

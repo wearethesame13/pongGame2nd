@@ -26,6 +26,7 @@ public:
 	eDir getDirection();
 	void Move();
 	void draw();
+	void Delete();
 };
 void TextColor(int x);
 void gotoxy(int x, int y);

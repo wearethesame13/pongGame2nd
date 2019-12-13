@@ -11,6 +11,7 @@ cPaddle::cPaddle(int posX, int posY) : cPaddle()
 	originalY = posY;
 	x = posX;
 	y = posY;
+	paddlelength = 10;
 }
 void cPaddle::Reset() 
 {
@@ -41,11 +42,33 @@ void cPaddle::moveDown()
 
 void cPaddle::moveLeft()
 {
+	Delete();
 	x=x-3;
 }
 
 void cPaddle::moveRight()
 {
+	Delete();
 	x=x+3;
+}
+
+void cPaddle::draw()
+{
+	TextColor(11);
+	for (int i = x - paddlelength / 2; i < x + paddlelength / 2; i++) 
+	{
+		gotoxy(i, y);
+		cout << static_cast <char>(219);
+	}
+
+}
+
+void cPaddle::Delete()
+{
+	for (int i = x - paddlelength / 2; i < x + paddlelength / 2; i++)
+	{
+		gotoxy(i, y);
+		cout << " ";
+	}
 }
 

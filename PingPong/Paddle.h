@@ -8,6 +8,7 @@ private:
 	int x, y;    // vi tri cua vot
 	int originalX, originalY; // vi tri ban dau cua vot
 public:
+	int paddlelength;
 	cPaddle();
 	cPaddle(int posX, int posY);
 	void Reset();
@@ -17,6 +18,8 @@ public:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
+	void draw();
+	void Delete();
 };
 
 #endif

@@ -1,4 +1,4 @@
-#include "Ball.h"
+﻿#include "Ball.h"
 
 
 cBall::cBall (int posX, int posY) // ham constructor
@@ -47,21 +47,27 @@ void cBall::Move() //ham di chuyen bong
 	case STOP:
 		break;
 	case UP:
+		Delete();
 		y--;
 		break;
 	case DOWN:
+		Delete();
 		y++;
 		break;
 	case UPLEFT:
+		Delete();
 		x--; y--;
 		break;
 	case DOWNLEFT:
+		Delete();
 		x--; y++;
 		break;
 	case UPRIGHT:
+		Delete();
 		x++; y--;
 		break;
 	case DOWNRIGHT:
+		Delete();
 		x++; y++;
 		break;
 	default:
@@ -76,20 +82,15 @@ void cBall::draw()
 	cout << "O";
 }
 
-//void TextColor(int x)
-//{
-//	HANDLE mau;
-//	mau = GetStdHandle(STD_OUTPUT_HANDLE);
-//	SetConsoleTextAttribute(mau, x);
-//}
-//
-//void gotoxy(int x, int y)
-//{
-//	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//
-//	_COORD pos;
-//	pos.X = x;
-//	pos.Y = y;
-//
-//	SetConsoleCursorPosition(hConsole, pos);
-//}
+void cBall::Delete()
+{
+	gotoxy(x, y);
+	if (y == 800 / 2) { // nếu bóng ở vị trí lưới 
+		TextColor(15);
+		cout << static_cast<char>(176);// vẽ lại lưới 
+	}
+	else
+		cout << " ";
+}
+
+

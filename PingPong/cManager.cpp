@@ -8,6 +8,22 @@ void SetConsoleSize(int width, int height)
 	MoveWindow(console, r.left, r.top, width, height, TRUE);
 }
 
+void clrscr()
+{
+	CONSOLE_SCREEN_BUFFER_INFO	csbiInfo;
+	HANDLE	hConsoleOut;
+	COORD	Home = { 0,0 };
+	DWORD	dummy;
+
+	hConsoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfo(hConsoleOut, &csbiInfo);
+
+	FillConsoleOutputCharacter(hConsoleOut, ' ', csbiInfo.dwSize.X * csbiInfo.dwSize.Y, Home, &dummy);
+	csbiInfo.dwCursorPosition.X = 0;
+	csbiInfo.dwCursorPosition.Y = 0;
+	SetConsoleCursorPosition(hConsoleOut, csbiInfo.dwCursorPosition);
+}
+
 void removeCursor()
 {
 	CONSOLE_CURSOR_INFO curInfo;
@@ -146,14 +162,8 @@ void cGameManager::Draw()
 	}
 
 	ball->draw();
-	/*int x = player1->getX();
-	int y = player1->getY();
-	for (int i = 0; i < paddleLength; i++) {
-		TextColor(11);
-		gotoxy(x + i, y);
-		cout << static_cast <char>(219);
-	}
-	TextColor(0);*/
+	cout << endl;
+	player1->draw();
 }
 
 void  cGameManager::CheckInput1()
@@ -248,10 +258,9 @@ void cGameManager::Logic()
 	//left wall
 	else if (ballx == 0)
 		ball->changeDirection(ball->getDirection() == UPLEFT ? UPRIGHT : DOWNRIGHT);
-	/*for (int i = 0; i < bricks.size(); i++)
-	{
-		bricks[i]->
-	}*/
+
+
+	
 }
 
 void Menu()
@@ -281,7 +290,6 @@ int Chon()
 
 void cGameManager::Run1()
 {
-	
 	Draw();
 	PrintUI(1);
 
@@ -292,8 +300,10 @@ void cGameManager::Run1()
 		Logic();
 		Draw();
 		PrintUI(1);
+		Sleep(100);
 		//PrintResult();
 		Pause();
 	}
 	
 }
+

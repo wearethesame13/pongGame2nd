@@ -53,5 +53,6 @@ void SetConsoleSize(int width, int height);
 void removeCursor();
 void WindowInit();
 bool isFileEmpty(ifstream& pFile);
+void clrscr();
 
 #endif

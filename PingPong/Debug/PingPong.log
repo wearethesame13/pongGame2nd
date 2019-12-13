@@ -1,1 +1,8 @@
-﻿  PingPong.vcxproj -> C:\Users\leman\Downloads\pongGame2nd-d7d0b3268c761940af47b968b3df24c1813c4b79\pongGame2nd-d7d0b3268c761940af47b968b3df24c1813c4b79\Debug\1712923_1712929_PingPong.exe
+﻿  cManager.cpp
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(52,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(121,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(127,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(134,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(140,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(143,20): warning C4018:  '<': signed/unsigned mismatch
+  PingPong.vcxproj -> D:\đạt\pongGame2nd\Debug\1712923_1712929_PingPong.exe

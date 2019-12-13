@@ -1,4 +1,4 @@
-#include"cManager.h"
+﻿#include"cManager.h"
 
 void SetConsoleSize(int width, int height)
 {
@@ -16,23 +16,6 @@ void removeCursor()
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
 }
 
-void gotoxy(int x, int y)
-{
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	_COORD pos;
-	pos.X = x;
-	pos.Y = y;
-
-	SetConsoleCursorPosition(hConsole, pos);
-}
-
-void TextColor(int x)
-{
-	HANDLE mau;
-	mau = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(mau, x);
-}
 
 void WindowInit()
 {
@@ -56,7 +39,9 @@ cGameManager::cGameManager(int w, int h)
 	MULTIPLIER[0] = 1;
 	MULTIPLIER[1] = 0.5;
 	MULTIPLIER[2] = 2;
-	bricks = new Brick[MAX_NUMBERS_OF_BRICKS];
+	level = new Level(1);
+	bricks.resize(0);
+	//items.resize(0);
 	walls = new Wall[MAX_NUMBERS_OF_WALLS];
 	paddleLength = 10;
 	wallLength = 10;
@@ -64,19 +49,24 @@ cGameManager::cGameManager(int w, int h)
 	paused = false;
 	ball = new cBall(w / 2, h / 2);  //dat Ball o chinh giua ban
 	player1 = new cPaddle(w/2, h-2); //dat vi tri ban dau cua vot player 1
-	int k = 0;
-	for (int i = 0; i < 4; i++) // khoi tao day brick
+	srand(time(NULL));
+	for (int i = 3; i <= 7; i++)
 	{
-		for (int j = 0; j < 8; j++)
+		if (i % 2 == 0) continue;
+		for (int j = 3; j < width - 8; j += 8)
 		{
-			//bricks[k] = new Brick(j * brickLength, i*2);
-			Brick x(j * brickLength, i * 2);
-			bricks[k] = x;
-			srand((unsigned)time(0));
-			int a;
-			a = (rand() % 3) + 1;
-			bricks[i].setMultiplier(a);
-			k++;
+			int isBrickCreate = rand() % 2;
+			if (isBrickCreate == 0) continue;
+
+			// random brickLevel
+			int brickLevel;
+
+			if (level->getLevel() == 1) brickLevel = rand() % 1;
+			else if (level->getLevel() == 2) brickLevel = rand() % 2;
+			else brickLevel = rand() % 3;
+
+			Brick* newBrick = new Brick(j, i, 7, brickLevel);
+			bricks.push_back(newBrick);
 		}
 	}
 	
@@ -87,7 +77,7 @@ cGameManager::~cGameManager()
 	delete ball, player1;
 	for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++)
 	{
-		bricks[i].~Brick();
+		bricks[i]->~Brick();
 	}
 }
 void cGameManager::LoadSavedGame()
@@ -109,7 +99,6 @@ void cGameManager::Restart()
 	player1->Reset();
 	TextColor(0);
 	Draw();
-
 }
 //ham tinh diem
 void cGameManager::ScoreUp(int addScore)
@@ -121,75 +110,50 @@ void cGameManager::ScoreUp(int addScore)
 void cGameManager::Draw()
 {
 	gotoxy(0, 0);
-
 	TextColor(11);
 	// tao khung tro choi
-	for (int i = 0; i < width + 2; i++)
-		cout << "\xB2";
-	TextColor(0);
-	cout << endl;
-
-	for (int i = 0; i < height; i++)
+	int color = 13;
+	TextColor(color);
+	//Biên trái
+	for (int i = 0; i <= height; i++)
 	{
-		for (int j = 0; j < width; j++)
-		{
-			// lay toa do cua ball va player
-			int ballx = ball->getX();
-			int bally = ball->getY();
-			int player1x = player1->getX();
-			int player1y = player1->getY();
-			if (j == 0)
-			{
-				TextColor(11);
-				cout << "\xB2"; //ve khung ben trai
-				TextColor(0);
-			}
-			for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++) //ve gach
-			{
-				if (bricks[i].isDestroyed()==true)
-				{
-					continue;
-				}
-				int brickx = bricks[i].getX();
-				int bricky = bricks[i].getY();
-				if ((i == bricky && j >= brickx - brickLength / 2 && j <= brickx + brickLength / 2))
-				{
-					TextColor(11);
-					cout << "\xDB";
-					TextColor(0);
-				}
-			}
-			if (ballx == j && bally == i)
-			{
-				TextColor(11);
-				cout << "O"; //ball   #ve vi tri bong
-				TextColor(0);
-			}
-			
-			else if (i == player1y && j >= player1x-paddleLength/2 && j <= player1x + paddleLength/2)
-			{
-				TextColor(11);
-				cout << "\xDB"; //player   //ve vi tri nguoi choi 
-				TextColor(0);
-			}
-			else
-				cout << " ";
+		gotoxy(0, i);
+		cout << static_cast<char>(219);
+	}
+	//Biên phải
+	for (int i = 0; i <= height; i++)
+	{
+		gotoxy(width, i);
+		cout << static_cast<char>(219);
 
-			if (j == width - 1)  //ve khung ben phai
-			{
-				TextColor(11);
-				cout << "\xB2"; //ve khung ben phai
-				TextColor(0);
-			}
-		}
-		cout << endl;
+	}
+	//Biên trên
+	for (int i = 1; i < width; i++)
+	{
+		gotoxy(i, 0);
+		cout << static_cast<char>(219);
+	}
+	//Biên dưới
+	for (int i = 1; i < width; i++)
+	{
+		gotoxy(i, height);
+		cout << static_cast<char>(219);
 	}
 
-	TextColor(11);
-	for (int i = 0; i < width + 2; i++) // ve khung duoi
-		cout << "\xB2";
-	TextColor(0);
-	cout << endl;
+	for (int i = 0; i < bricks.size(); i++)
+	{
+		bricks[i]->draw();
+	}
+
+	ball->draw();
+	/*int x = player1->getX();
+	int y = player1->getY();
+	for (int i = 0; i < paddleLength; i++) {
+		TextColor(11);
+		gotoxy(x + i, y);
+		cout << static_cast <char>(219);
+	}
+	TextColor(0);*/
 }
 
 void  cGameManager::CheckInput1()
@@ -284,19 +248,10 @@ void cGameManager::Logic()
 	//left wall
 	else if (ballx == 0)
 		ball->changeDirection(ball->getDirection() == UPLEFT ? UPRIGHT : DOWNRIGHT);
-	for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++)
+	/*for (int i = 0; i < bricks.size(); i++)
 	{
-		int brickx = bricks[i].getX();
-		int bricky = bricks[i].getY();
-		if (bally == bricky - 1)
-		{
-			if (ballx >= brickx - brickLength / 2 && ballx <= brickx + brickLength / 2)
-			{
-				ball->changeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
-				bricks[i].setDestroyed();
-			}
-		}
-	}
+		bricks[i]->
+	}*/
 }
 
 void Menu()
@@ -337,7 +292,7 @@ void cGameManager::Run1()
 		Logic();
 		Draw();
 		PrintUI(1);
-		PrintResult();
+		//PrintResult();
 		Pause();
 	}
 	

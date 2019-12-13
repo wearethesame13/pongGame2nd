@@ -1,57 +1,75 @@
-#include "Brick.h"
+﻿#include "Brick.h"
 
-Brick::Brick()
+
+Brick::Brick(int x, int y, int length, int level) :
+	x(x), y(y), length(length), level(level)
 {
-	x = y = 0;
-	destroyed = false;
-	multiplier = 1;
+	color[0] = 2;
+	color[1] = 6;
+	color[2] = 14;
 }
 
-Brick::Brick(int posX, int posY):Brick()
+void Brick::draw()
 {
-	this->x = posX;
-	this->y = posY;
-	destroyed = false;
-	multiplier = 1;
+	if (level <= -1) return;
+
+	TextColor(color[level]);
+	for (int i = 0; i < length; i++) {
+		gotoxy(x + i, y);
+		cout << "=";
+	}
 }
 
-Brick::~Brick()
+void Brick::erase()
 {
-
+	for (int i = 0; i < length; i++) {
+		gotoxy(x + i, y);
+		cout << " ";
+	}
 }
 
-int Brick::getX()
+bool Brick::processTouchBall(cBall* ball)
 {
+	if ((ball->getY() == y) ||
+		(ball->getY() == y + 1 && ball->getDirection() == UP) ||
+		(ball->getY() == y + 1 && ball->getDirection() == UPLEFT) ||
+		(ball->getY() == y + 1 && ball->getDirection() == UPRIGHT) ||
+		(ball->getY() == y - 1 && ball->getDirection() == DOWN) ||
+		(ball->getY() == y - 1 && ball->getDirection() == DOWNLEFT) ||
+		(ball->getY() == y - 1 && ball->getDirection() == DOWNRIGHT)) {
+
+		if (ball->getX() < x || ball->getX() > x + length - 1) return false;
+		// Touched
+		level--;
+		erase();
+		if (level == -1) {
+			x = y = -5;
+			return true;
+		}
+		// Vẽ lại brick
+		draw();
+		return true;
+	}
+	else return false;
+}
+
+int Brick::getLevel()
+{
+	return level;
+}
+
+int Brick::getX() {
 	return x;
 }
 
-int Brick::getY()
-{
+int Brick::getY() {
 	return y;
 }
 
-int Brick::getMultiplier()
-{
-	return multiplier;
+int Brick::getLenght() {
+	return length;
 }
 
-void Brick::setMultiplier(int a)
-{
-	multiplier = a;
-}
-
-
-bool Brick::isDestroyed()
-{
-	return destroyed;
-}
-
-void Brick::setDestroyed()
-{
-	destroyed = true;
-}
-
-void Brick::reset()
-{
-	destroyed = false;
+int Brick::getColor() {
+	return color[level];
 }

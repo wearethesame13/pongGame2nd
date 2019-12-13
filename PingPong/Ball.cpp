@@ -46,11 +46,11 @@ void cBall::Move() //ham di chuyen bong
 	{
 	case STOP:
 		break;
-	case LEFT:
-		x--;
+	case UP:
+		y--;
 		break;
-	case RIGHT:
-		x++;
+	case DOWN:
+		y++;
 		break;
 	case UPLEFT:
 		x--; y--;
@@ -69,6 +69,27 @@ void cBall::Move() //ham di chuyen bong
 	}
 }
 
+void cBall::draw()
+{
+	TextColor(9);
+	gotoxy(x, y);
+	cout << "O";
+}
 
-
-
+//void TextColor(int x)
+//{
+//	HANDLE mau;
+//	mau = GetStdHandle(STD_OUTPUT_HANDLE);
+//	SetConsoleTextAttribute(mau, x);
+//}
+//
+//void gotoxy(int x, int y)
+//{
+//	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+//
+//	_COORD pos;
+//	pos.X = x;
+//	pos.Y = y;
+//
+//	SetConsoleCursorPosition(hConsole, pos);
+//}

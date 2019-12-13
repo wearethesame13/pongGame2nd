@@ -1,23 +1,27 @@
 #ifndef __Brick_h__
 #define __Brick_h__
+#include <Windows.h>
+#include "Level.h"
+#include "Ball.h"
+
 
 class Brick
 {
-private: 
+private:
 	int x;
 	int y;
-	bool destroyed;
-	int multiplier;
+	int length;
+	int level;
+	int color[3];
 public:
-	Brick();
-	Brick(int posX, int posY);
-	~Brick();
+	Brick(int x, int y, int length, int level);
+	void draw();
+	void erase();
+	bool processTouchBall(cBall* ball);
+	int getLevel();
 	int getX();
 	int getY();
-	int getMultiplier();
-	void setMultiplier(int a);
-	bool isDestroyed();
-	void setDestroyed();
-	void reset();
+	int getLenght();
+	int getColor();
 };
 #endif // !1

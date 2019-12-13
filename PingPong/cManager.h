@@ -7,6 +7,7 @@
 #include <fstream>
 #include "Wall.h"
 #include <windows.h>
+#include <vector>
 
 class cGameManager
 {
@@ -25,7 +26,8 @@ private:
 	bool quit;            // thoat game
 	cBall * ball;
 	cPaddle *player1;     // nguoi choi 1
-	Brick *bricks;
+	vector<Brick*>bricks;
+	Level* level;
 	Wall *walls;
 public:
 	
@@ -49,8 +51,6 @@ int Chon();
 // hàm hỗ trợ cho background
 void SetConsoleSize(int width, int height);
 void removeCursor();
-void gotoxy(int x, int y);
-void TextColor(int x);
 void WindowInit();
 bool isFileEmpty(ifstream& pFile);
 

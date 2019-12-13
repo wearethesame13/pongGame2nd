@@ -3,10 +3,12 @@
 #include <iostream>
 #include <time.h>
 #include <conio.h>
+#include <Windows.h>
+
 using namespace std;
 
 //bang liet ke cho huong di cua bong ban
-enum eDir { STOP = 0, LEFT = 1, UPLEFT = 2, DOWNLEFT = 3, RIGHT = 4, UPRIGHT = 5, DOWNRIGHT = 6 };
+enum eDir { STOP = 0, UP=1 , UPLEFT = 2, DOWNLEFT = 3, DOWN = 4, UPRIGHT = 5, DOWNRIGHT = 6};
 
 class cBall
 {
@@ -23,6 +25,11 @@ public:
 	int getY();
 	eDir getDirection();
 	void Move();
+	void draw();
 };
+void TextColor(int x);
+void gotoxy(int x, int y);
+
+
 
 #endif

@@ -50,15 +50,11 @@ cGameManager::cGameManager(int w, int h)
 	srand((unsigned int)time(NULL)); // thoi gian ngau nhien
 	quit = false;
 	left1 = 'a'; right1 = 'd';
-	score = 0;   // set diem ca 2 player = 0
+	score = 0;   // set diem player = 0
 	width = w; height = h;
-	MULTIPLIER[0] = 1;
-	MULTIPLIER[1] = 0.5;
-	MULTIPLIER[2] = 2;
-	level = new Level(1);
+	level = new Level(2);
 	bricks.resize(0);
 	//items.resize(0);
-	walls = new Wall[MAX_NUMBERS_OF_WALLS];
 	paddleLength = 10;
 	wallLength = 10;
 	brickLength = 5;
@@ -155,7 +151,7 @@ void cGameManager::Draw()
 		gotoxy(i, height);
 		cout << static_cast<char>(219);
 	}
-
+	//Ve gach
 	for (int i = 0; i < bricks.size(); i++)
 	{
 		bricks[i]->draw();
@@ -164,7 +160,7 @@ void cGameManager::Draw()
 	ball->draw();
 	cout << endl;
 	player1->draw();
-
+	//Ball cham gach
 	for (int i = 0; i < bricks.size(); i++)
 	{
 		if (!bricks[i]->processTouchBall(ball)) continue;
@@ -204,6 +200,8 @@ void cGameManager::Draw()
 		else if (ball->getDirection() == DOWNRIGHT)
 			ball->setDirection(UPRIGHT);
 	}
+
+	
 }
 
 void  cGameManager::CheckInput1()
@@ -220,7 +218,7 @@ void  cGameManager::CheckInput1()
 	{
 		char current = _getch(); //nhan du lieu 
 		if (current == left1)
-		if (player1x - paddleLength / 2 > 0)
+		if (player1x - paddleLength / 2 > 1)
 			player1->moveLeft();
 
 		if (current == right1)
@@ -260,7 +258,30 @@ void cGameManager::PrintResult()
 {
 	//Win-Lose
 	system("cls");
-	cout << "YOU WIN!!" << endl;
+	cout << "YOUR SCORES: " << score << endl;
+	fstream fileout;
+	fileout.open("HighScore.txt", ios::app);
+	fileout << score << endl;
+	fileout.close();
+
+	fstream filein;
+	filein.open("HighScore.txt", ios::in);
+	vector<int>scores;
+	int x;
+	while (filein.eof()==false)
+	{
+		filein >> x;
+		scores.push_back(x);
+	}
+	int max = scores[0];
+	for (int i = 1; i < scores.size(); i++)
+	{
+		if (max < scores[i])
+		{
+			max = scores[i];
+		}
+	}
+	cout << "HIGHSCORE IS: " << max << endl;
 	system("pause");
 	quit = true;
 }
@@ -290,17 +311,43 @@ void cGameManager::Logic()
 		//ball->changeDirection((eDir)((rand() % 3) + 4)); //chuyen huong bong sang vi tri ngau nhien qua phai
 		ball->changeDirection(ball->getDirection() == DOWNLEFT ? UPLEFT : UPRIGHT);
 	//top wall
-	if (bally == 0)
+	if (bally == 1)
 		ball->changeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
 	//right wall
 	if (ballx == width - 1)
 		ball->changeDirection(ball->getDirection() == UPRIGHT ? UPLEFT : DOWNLEFT);
 	//left wall
-	else if (ballx == 0)
+	else if (ballx == 1)
 		ball->changeDirection(ball->getDirection() == UPLEFT ? UPRIGHT : DOWNRIGHT);
 
+	//Neu gach het thi tao vector gach moi
+	if (bricks.empty() == true)
+	{
+		for (int i = 3; i <= 7; i++)
+		{
+			if (i % 2 == 0) continue;
+			for (int j = 3; j < width - 8; j += 8)
+			{
+				int isBrickCreate = rand() % 2;
+				if (isBrickCreate == 0) continue;
 
-	
+				// random brickLevel
+				int brickLevel;
+
+				if (level->getLevel() == 1) brickLevel = rand() % 1;
+				else if (level->getLevel() == 2) brickLevel = rand() % 2;
+				else brickLevel = rand() % 3;
+
+				Brick* newBrick = new Brick(j, i, 7, brickLevel);
+				bricks.push_back(newBrick);
+			}
+		}
+	}
+	// Xuat diem player
+	if (ball->getY() == height)
+	{
+		PrintResult();
+	}
 }
 
 void Menu()

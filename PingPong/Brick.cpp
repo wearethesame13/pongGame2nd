@@ -1,6 +1,5 @@
 ﻿#include "Brick.h"
 
-
 Brick::Brick(int x, int y, int length, int level) :
 	x(x), y(y), length(length), level(level)
 {

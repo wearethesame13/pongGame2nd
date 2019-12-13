@@ -1,2 +1,10 @@
-﻿  Brick.cpp
+﻿  cManager.cpp
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(64,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(133,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(139,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(146,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(152,29): warning C4309:  'static_cast': truncation of constant value
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(155,20): warning C4018:  '<': signed/unsigned mismatch
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(164,20): warning C4018:  '<': signed/unsigned mismatch
+D:\đạt\pongGame2nd\PingPong\cManager.cpp(277,20): warning C4018:  '<': signed/unsigned mismatch
   PingPong.vcxproj -> D:\đạt\pongGame2nd\Debug\1712923_1712929_PingPong.exe

@@ -43,13 +43,13 @@ void cPaddle::moveDown()
 void cPaddle::moveLeft()
 {
 	Delete();
-	x=x-3;
+	x=x-2;
 }
 
 void cPaddle::moveRight()
 {
 	Delete();
-	x=x+3;
+	x=x+2;
 }
 
 void cPaddle::draw()

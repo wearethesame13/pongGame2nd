@@ -4,6 +4,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "Brick.h"
+#include "Item.h"
 #include <fstream>
 #include "Wall.h"
 #include <windows.h>
@@ -25,7 +26,8 @@ private:
 	char left1, right1;
 	bool quit;            // thoat game
 	cBall * ball;
-	cPaddle *player1;     // nguoi choi 1
+	cPaddle *player1;    // nguoi choi 1
+	vector<Item*>items;
 	vector<Brick*>bricks;
 	Level* level;
 	Wall *walls;
@@ -34,8 +36,10 @@ public:
 	cGameManager(int w, int h);
 	~cGameManager();
 	void LoadSavedGame();
+	void SaveGame();
 	void Restart();
-	void ScoreUp(int addScore);
+	void setScore(int a);
+	int getScore();
 	void Draw();
 	void CheckInput1();
 	void PrintUI(int);

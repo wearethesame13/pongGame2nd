@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>D:\THOOP\PingPong\</FILEPATH>
+      <FILENAME>cManager.cpp</FILENAME>
+      <LINE>48</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'cGameManager::walls' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>cGameManager::{ctor}</FUNCTION>
+    <DECORATED>??0cGameManager@@QAE@HH@Z</DECORATED>
+    <FUNCLINE>48</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>cGameManager::walls</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\THOOP\PingPong\</FILEPATH>
+      <FILENAME>cManager.cpp</FILENAME>
+      <LINE>332</LINE>
+      <COLUMN>45</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'eDir' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>cGameManager::Logic</FUNCTION>
+    <DECORATED>?Logic@cGameManager@@QAEXXZ</DECORATED>
+    <FUNCLINE>322</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\THOOP\PingPong\</FILEPATH>
+      <FILENAME>Ball.cpp</FILENAME>
+      <LINE>9</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'eDir' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>cBall::{ctor}</FUNCTION>
+    <DECORATED>??0cBall@@QAE@HH@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\THOOP\PingPong\</FILEPATH>
+      <FILENAME>Paddle.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'cPaddle::paddlelength' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>cPaddle::{ctor}</FUNCTION>
+    <DECORATED>??0cPaddle@@QAE@XZ</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>cPaddle::paddlelength</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

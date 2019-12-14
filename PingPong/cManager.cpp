@@ -81,7 +81,24 @@ cGameManager::cGameManager(int w, int h)
 			bricks.push_back(newBrick);
 		}
 	}
-	
+	srand(time(NULL));
+
+	for (int i = 3; i <= 9; i++)
+	{
+		if (i % 2 != 0) continue;
+		for (int j = 6; j < width - 8; j += 8)
+		{
+			int isItemCreate = rand() % 5;
+			if (isItemCreate < 4) continue;
+
+			// random Type
+			int itemType = rand() % 7;
+
+			Item* newItem;
+			newItem = new ScoreItem(j, i);
+			items.push_back(newItem);
+		}
+	}
 }
 
 cGameManager::~cGameManager()
@@ -101,8 +118,89 @@ void cGameManager::LoadSavedGame()
 	}
 	else
 	{
-		
+		quit = false;
+		int ballX, ballY;
+		int paddleX, paddleY;
+		int len;
+		int LV = 1;
+		int dir;
+		fileIn >> ballX;
+		fileIn >> ballY;
+		fileIn >> dir;
+		fileIn >> paddleX;
+		fileIn >> paddleY;
+		level = new Level(LV);
+		if (player1!=NULL)
+		{
+			delete player1;
+		}
+		player1 = new cPaddle(paddleX, paddleY);
+		if (ball!=NULL)
+		{
+			delete ball;
+		}
+		ball = new cBall(ballX, ballY);
+		ball->setDirection((eDir)dir);
+		int numBricks;
+		fileIn >> numBricks;
+		int brickX, brickY;
+		for (int i = 0; i < numBricks; i++)
+		{
+			Brick* brick;
+			fileIn >> brickX;
+			fileIn >> brickY;
+			fileIn >> len;
+			fileIn >> LV;
+			brick = new Brick(brickX, brickY, len, LV);
+			bricks.push_back(brick);
+		}
+		int itemNums;
+		fileIn >> itemNums;
+		int itemX, itemY;
+		for (int i = 0; i < itemNums; i++)
+		{
+			Item* item;
+			fileIn >> itemX;
+			fileIn >> itemY;
+			item = new ScoreItem(itemX, itemY);
+			items.push_back(item);
+		}
 	}
+	fileIn.close();
+}
+void cGameManager::SaveGame()
+{
+	ofstream fileOut;
+	fileOut.open("SaveGame.txt", ios::trunc);
+	if (!fileOut.is_open())
+	{
+		cout << "Can not open file";
+		Sleep(2000);
+		return;
+	}
+	int ballX, ballY;
+	int paddleX, paddleY;
+	int len;
+	int LV = 1;
+	int dir;
+	fileOut << ballX << endl;
+	fileOut << ballY << endl;
+	fileOut << ((int)ball->getDirection()) << endl;
+	fileOut << bricks.size();
+	for (int i = 0; i < bricks.size(); i++)
+	{
+		fileOut << bricks[i]->getX() << endl;
+		fileOut << bricks[i]->getY() << endl;
+		fileOut << bricks[i]->getLenght() << endl;
+		fileOut << bricks[i]->getLevel() << endl;
+	}
+	fileOut << items.size();
+	for (int i = 0; i < items.size(); i++)
+	{
+		fileOut << items[i]->getX() << endl;
+		fileOut << items[i]->getY() << endl;
+	}
+	fileOut.close();
 }
 void cGameManager::Restart()
 {
@@ -113,9 +211,13 @@ void cGameManager::Restart()
 	Draw();
 }
 //ham tinh diem
-void cGameManager::ScoreUp(int addScore)
+void cGameManager::setScore(int a)
 {
-	score += addScore;	
+	score = a;
+}
+int cGameManager::getScore()
+{
+	return score;
 }
 
 //ve vi tri cho bong va vot
@@ -156,7 +258,11 @@ void cGameManager::Draw()
 	{
 		bricks[i]->draw();
 	}
-
+	//Ve item
+	for (int i = 0; i < items.size(); i++)
+	{
+		items[i]->draw();
+	}
 	ball->draw();
 	cout << endl;
 	player1->draw();
@@ -200,7 +306,6 @@ void cGameManager::Draw()
 		else if (ball->getDirection() == DOWNRIGHT)
 			ball->setDirection(UPRIGHT);
 	}
-
 	
 }
 
@@ -294,7 +399,7 @@ void cGameManager::Pause()
 		TextColor(12);
 		cout << "Game tam dung, nhan Enter de tiep tuc choi";
 		TextColor(0);
-		system("pause");
+		cin.get();
 	}
 }
 
@@ -347,6 +452,14 @@ void cGameManager::Logic()
 	if (ball->getY() == height)
 	{
 		PrintResult();
+	}
+	for (int i = 0; i < items.size(); i++)
+	{
+		if (!items[i]->isTouchedBall(ball)) continue;
+		// Touched
+		items[i]->apply(this);
+		items.erase(items.begin() + i);
+		items.shrink_to_fit();
 	}
 }
 

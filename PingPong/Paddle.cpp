@@ -52,6 +52,7 @@ void cPaddle::moveRight()
 	x=x+2;
 }
 
+
 void cPaddle::draw()
 {
 	TextColor(11);

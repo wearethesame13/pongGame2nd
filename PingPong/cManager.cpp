@@ -195,6 +195,17 @@ void cGameManager::LoadSavedGame()
 			item = new ScoreItem(itemX, itemY);
 			items.push_back(item);
 		}
+		int wallNums;
+		fileIn >> wallNums;
+		int wallX, wallY;
+		for (int i = 0; i < wallNums; i++)
+		{
+			Wall* wall;
+			fileIn >> wallX;
+			fileIn >> wallY;
+			wall = new Wall(wallX, wallY);
+			walls.push_back(wall);
+		}
 	}
 	fileIn.close();
 }
@@ -229,6 +240,12 @@ void cGameManager::SaveGame()
 	{
 		fileOut << items[i]->getX() << endl;
 		fileOut << items[i]->getY() << endl;
+	}
+	fileOut << walls.size();
+	for (int i = 0; i < walls.size(); i++)
+	{
+		fileOut << walls[i]->getX() << endl;
+		fileOut << walls[i]->getY() << endl;
 	}
 	fileOut.close();
 }
@@ -401,8 +418,12 @@ void  cGameManager::CheckInput1()
 		if (ball->getDirection() == STOP) //neu ball dung lai thi tao vi tri ngau nhien cho ball
 			ball->randomDirection();
 
-		if (current == 'q') //quit game
+		if (current == 'p' || current == 'P') //pause
+			paused = true;
+		if (current == 'esc')
+		{
 			quit = true;
+		}
 		
 	}
 
@@ -415,12 +436,17 @@ void  cGameManager::PrintUI(int choose)
 	cout << "Player's score: " << score;
 	TextColor(12);
 	gotoxy(width + 5, 8);
-	cout << "Press Q key to quit game"<<endl;
+	cout << "Press ESC key to quit game"<<endl;
 	TextColor(11);
 	gotoxy(width + 5, 9);
-	cout << "Press ESC key to pause game";
+	cout << "Press P key to pause game";
 	gotoxy(width / 2 - 7, height + 3);
-	TextColor(10); cout << "Brick"; TextColor(11); cout << " Breaker"; TextColor(12); cout << " GAME";
+	TextColor(10); 
+	cout << "Brick";
+	TextColor(11); 
+	cout << " Breaker"; 
+	TextColor(12); 
+	cout << " GAME";
 	gotoxy(width / 2 - 8, height + 4);
 }
 
@@ -458,32 +484,33 @@ void cGameManager::PrintResult()
 
 void cGameManager::Pause()
 {
-	if (paused==true)
+	system("cls");
+	gotoxy(width + 5, 6);
+	TextColor(12);
+	cout << "Game tam dung!!!";
+	TextColor(11);
+	gotoxy(width + 5, 7); 
+	cout<<"Nhan Escape de tiep tuc choi.";
+	TextColor(10);
+	gotoxy(width + 5, 8);
+	cout << "Nhan Space de luu game.";
+	TextColor(0);
+	if (_kbhit())
 	{
-		cin.get();
-		system("cls");
-		gotoxy(width + 5, 6);
-		TextColor(12);
-		cout << "Game tam dung!!!";
-		TextColor(11);
-		gotoxy(width + 5, 7); 
-		cout<<"Nhan Enter de tiep tuc choi.";
-		TextColor(10);
-		gotoxy(width + 5, 8);
-		cout << "Nhan Space de luu game.";
-		TextColor(0);
-		if (_kbhit())
+
+		fflush(stdin);
+		char current = _getch(); //nhan du lieu 
+		if (current == 27)
 		{
-			char current = _getch(); //nhan du lieu 
-			if (current == 13)
-			{
-				quit = false;
-				Run1();
-			}
-			if (current == 32)
-			{
-				SaveGame();
-			}
+			
+			paused = false;
+		}
+		if (current == 32)
+		{
+			SaveGame();
+			gotoxy(width + 5, 9);
+			cout << "Luu game thanh cong.";
+			paused = false;
 		}
 	}
 }
@@ -632,7 +659,7 @@ void cGameManager::Run1()
 	Draw();
 	PrintUI(1);
 
-	while (!quit)
+	while (true && !quit)
 	{
 		srand((unsigned int)time(NULL));
 		CheckInput1();
@@ -640,8 +667,10 @@ void cGameManager::Run1()
 		Draw();
 		PrintUI(1);
 		Sleep(100);
+		if (paused==true)
+		{
+			Pause();
+		}
 		//PrintResult();
-		Pause();
 	}
-	
 }

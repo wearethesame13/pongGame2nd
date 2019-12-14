@@ -1,4 +1,5 @@
-﻿  cManager.cpp
+﻿  Brick.cpp
+  cManager.cpp
 D:\THOOP\PingPong\cManager.cpp(75,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\THOOP\PingPong\cManager.cpp(97,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\THOOP\PingPong\cManager.cpp(137,20): warning C4018: '<': signed/unsigned mismatch
@@ -16,5 +17,16 @@ D:\THOOP\PingPong\cManager.cpp(321,20): warning C4018: '<': signed/unsigned mism
 D:\THOOP\PingPong\cManager.cpp(326,20): warning C4018: '<': signed/unsigned mismatch
 D:\THOOP\PingPong\cManager.cpp(330,20): warning C4018: '<': signed/unsigned mismatch
 D:\THOOP\PingPong\cManager.cpp(338,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(447,20): warning C4018: '<': signed/unsigned mismatch
+  Item.cpp
+D:\THOOP\PingPong\cManager.cpp(456,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\Item.cpp(46,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Level.cpp
+  Main.cpp
+  Ball.cpp
+D:\THOOP\PingPong\Item.cpp(49,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Paddle.cpp
+D:\THOOP\PingPong\Ball.cpp(95,29): warning C4309: 'static_cast': truncation of constant value
+  Wall.cpp
+  Generating Code...
+D:\THOOP\PingPong\Paddle.cpp(62,30): warning C4309: 'static_cast': truncation of constant value
   PingPong.vcxproj -> D:\THOOP\Debug\1712923_1712929_PingPong.exe

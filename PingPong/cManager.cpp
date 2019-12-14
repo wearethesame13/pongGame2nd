@@ -45,6 +45,18 @@ bool isFileEmpty(ifstream& pFile)
 }
 
 // quan ly luat choi, diem so
+cGameManager::cGameManager() {
+	width = 0;
+	height = 0;
+	score = 0;
+	player1 = new cPaddle(width / 2 - 4, height - 1);
+	ball = new cBall(width / 2 + 1, height - 2);
+	quit = false;
+
+	bricks.resize(0);
+	items.resize(0);
+	walls.resize(0);
+}
 cGameManager::cGameManager(int w, int h)
 {
 	srand((unsigned int)time(NULL)); // thoi gian ngau nhien
@@ -56,47 +68,65 @@ cGameManager::cGameManager(int w, int h)
 	bricks.resize(0);
 	//items.resize(0);
 	paddleLength = 10;
-	wallLength = 10;
 	brickLength = 5;
 	paused = false;
 	ball = new cBall(w / 2, h / 2);  //dat Ball o chinh giua ban
 	player1 = new cPaddle(w/2, h-2); //dat vi tri ban dau cua vot player 1
 	srand(time(NULL));
+	//tao vector bricks
 	for (int i = 3; i <= 7; i++)
 	{
-		if (i % 2 == 0) continue;
-		for (int j = 3; j < width - 8; j += 8)
-		{
-			int isBrickCreate = rand() % 2;
-			if (isBrickCreate == 0) continue;
+		if (i % 3 == 0) {
+			for (int j = 3; j < width - 8; j += 8)
+			{
+				int isBrickCreate = rand() % 2;
+				if (isBrickCreate == 0) continue;
 
-			// random brickLevel
-			int brickLevel;
+				// random brickLevel
+				int brickLevel;
 
-			if (level->getLevel() == 1) brickLevel = rand() % 1;
-			else if (level->getLevel() == 2) brickLevel = rand() % 2;
-			else brickLevel = rand() % 3;
+				if (level->getLevel() == 1) brickLevel = rand() % 1;
+				else if (level->getLevel() == 2) brickLevel = rand() % 2;
+				else brickLevel = rand() % 3;
 
-			Brick* newBrick = new Brick(j, i, 7, brickLevel);
-			bricks.push_back(newBrick);
+				Brick* newBrick = new Brick(j, i, 7, brickLevel);
+				bricks.push_back(newBrick);
+			}
 		}
 	}
 	srand(time(NULL));
 
 	for (int i = 3; i <= 9; i++)
 	{
-		if (i % 2 != 0) continue;
-		for (int j = 6; j < width - 8; j += 8)
+		if (i % 3 == 1) {
+			for (int j = 6; j < width - 8; j += 8)
+			{
+				int isItemCreate = rand() % 5;
+				if (isItemCreate < 4) continue;
+
+				Item* newItem;
+				newItem = new ScoreItem(j, i);
+				items.push_back(newItem);
+			}
+		}
+	}
+	for (int i = 3; i <= 10; i++)
+	{
+		for (int j = 6; j < width - 10; j += 8)
 		{
-			int isItemCreate = rand() % 5;
-			if (isItemCreate < 4) continue;
+			if (i % 3 == 2) {
 
-			// random Type
-			int itemType = rand() % 7;
-
-			Item* newItem;
-			newItem = new ScoreItem(j, i);
-			items.push_back(newItem);
+				int isWallCreate = rand() % 6;
+				if (isWallCreate < 5) continue;
+				Wall* newWall;
+				newWall = new Wall(j, i);
+				walls.push_back(newWall);
+				if (walls.size() == MAX_NUMBERS_OF_WALLS)
+				{
+					return;
+				}
+			}
+			
 		}
 	}
 }
@@ -104,7 +134,7 @@ cGameManager::cGameManager(int w, int h)
 cGameManager::~cGameManager()
 {
 	delete ball, player1;
-	for (int i = 0; i < MAX_NUMBERS_OF_BRICKS; i++)
+	for (int i = 0; i < bricks.size(); i++)
 	{
 		bricks[i]->~Brick();
 	}
@@ -178,13 +208,13 @@ void cGameManager::SaveGame()
 		Sleep(2000);
 		return;
 	}
-	int ballX, ballY;
+	
 	int paddleX, paddleY;
 	int len;
 	int LV = 1;
 	int dir;
-	fileOut << ballX << endl;
-	fileOut << ballY << endl;
+	fileOut << ball->getX()<< endl;
+	fileOut << ball->getY() << endl;
 	fileOut << ((int)ball->getDirection()) << endl;
 	fileOut << bricks.size();
 	for (int i = 0; i < bricks.size(); i++)
@@ -209,6 +239,40 @@ void cGameManager::Restart()
 	player1->Reset();
 	TextColor(0);
 	Draw();
+}
+void cGameManager::renewItems()
+{
+	items.clear();
+	for (int i = 3; i <= 9; i++)
+	{
+		if (i % 3 == 1) {
+			for (int j = 6; j < width - 8; j += 8)
+			{
+				int isItemCreate = rand() % 5;
+				if (isItemCreate < 4) continue;
+
+				Item* newItem;
+				newItem = new ScoreItem(j, i);
+				items.push_back(newItem);
+			}
+		}
+	}
+}
+void cGameManager::renewWall()
+{
+	walls.clear();
+	for (int i = 3; i <= 10; i++)
+	{
+		for (int j = 6; j < width - 10; j += 8)
+		{
+			int isWallCreate = rand() % 7;
+			if (isWallCreate < 6) continue;
+			
+			Wall* newWall;
+			newWall = new Wall(j, i);
+			walls.push_back(newWall);
+		}
+	}
 }
 //ham tinh diem
 void cGameManager::setScore(int a)
@@ -262,6 +326,10 @@ void cGameManager::Draw()
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->draw();
+	}
+	for (int i = 0; i < walls.size(); i++)
+	{
+		walls[i]->draw();
 	}
 	ball->draw();
 	cout << endl;
@@ -335,10 +403,7 @@ void  cGameManager::CheckInput1()
 
 		if (current == 'q') //quit game
 			quit = true;
-		if (current == 'esc') // pause game
-		{
-			paused = true;
-		}
+		
 	}
 
 }
@@ -393,15 +458,36 @@ void cGameManager::PrintResult()
 
 void cGameManager::Pause()
 {
-	if (paused == true)
+	if (paused==true)
 	{
+		cin.get();
+		system("cls");
 		gotoxy(width + 5, 6);
 		TextColor(12);
-		cout << "Game tam dung, nhan Enter de tiep tuc choi";
+		cout << "Game tam dung!!!";
+		TextColor(11);
+		gotoxy(width + 5, 7); 
+		cout<<"Nhan Enter de tiep tuc choi.";
+		TextColor(10);
+		gotoxy(width + 5, 8);
+		cout << "Nhan Space de luu game.";
 		TextColor(0);
-		cin.get();
+		if (_kbhit())
+		{
+			char current = _getch(); //nhan du lieu 
+			if (current == 13)
+			{
+				quit = false;
+				Run1();
+			}
+			if (current == 32)
+			{
+				SaveGame();
+			}
+		}
 	}
 }
+
 
 //ham va cham bong
 void cGameManager::Logic()
@@ -448,12 +534,28 @@ void cGameManager::Logic()
 			}
 		}
 	}
+	if (items.empty() == true)
+	{
+		for (int i = 3; i <= 7; i++)
+		{
+			if (i % 2 == 0) continue;
+			for (int j = 3; j < width - 8; j += 8)
+			{
+				int isItemCreate = rand() % 2;
+				if (isItemCreate == 0) continue;
+
+				
+				Item* newItem = new ScoreItem(j, i);
+				items.push_back(newItem);
+			}
+		}
+	}
 	// Xuat diem player
 	if (ball->getY() == height)
 	{
 		PrintResult();
 	}
-	for (int i = 0; i < items.size(); i++)
+	for (int i = 0; i < (int)items.size(); i++)
 	{
 		if (!items[i]->isTouchedBall(ball)) continue;
 		// Touched
@@ -461,15 +563,52 @@ void cGameManager::Logic()
 		items.erase(items.begin() + i);
 		items.shrink_to_fit();
 	}
+	for (int i = 0; i < (int)walls.size(); i++)
+	{
+		if (!walls[i]->processTouchBall(ball))
+		{
+			continue;
+		}
+		//Touched
+		if (ball->getDirection() == UP) {
+			int ran = rand() % 3 + 4;
+			if (ran == 4)
+				ball->setDirection(DOWN);
+			else if (ran == 5)
+				ball->setDirection(DOWNLEFT);
+			else if (ran == 6)
+				ball->setDirection(DOWNRIGHT);
+		}
+		else if (ball->getDirection() == UPLEFT)
+			ball->setDirection(DOWNLEFT);
+		else if (ball->getDirection() == UPRIGHT)
+			ball->setDirection(DOWNRIGHT);
+		// Bóng đang đi xuống
+		else if (ball->getDirection() == DOWN) {
+			int ran = rand() % 3 + 4;
+			if (ran == 4)
+				ball->setDirection(UP);
+			else if (ran == 5)
+				ball->setDirection(UPLEFT);
+			else if (ran == 6)
+				ball->setDirection(UPRIGHT);
+		}
+		else if (ball->getDirection() == DOWNLEFT)
+			ball->setDirection(UPLEFT);
+		else if (ball->getDirection() == DOWNRIGHT)
+			ball->setDirection(UPRIGHT);
+	}
 }
 
 void Menu()
 {
 	system("cls");
+	
 	cout << "======================= MENU =====================\n\n";
 	cout << "Chao mung ban den voi game Pha Gach" << endl;
-	cout << "1. Bat dau choi." << endl;
-	cout << "2. Thoat." << endl;
+	cout << "1. Start." << endl;
+	cout << "2. Resume" << endl;
+	cout << "2. Exit." << endl;
 	cout << "==================================================\n";
 }
 
@@ -479,7 +618,7 @@ int Chon()
 
 	cout << "\n Nhap lua chon cua ban: ";
 	cin >> lenh;
-	if (lenh < 1 || lenh > 2)
+	if (lenh < 1 || lenh > 3)
 	{
 		cout << "\nLua chon khong hop le. Xin kiem tra lai !\n";
 		system("pause");
@@ -506,4 +645,3 @@ void cGameManager::Run1()
 	}
 	
 }
-

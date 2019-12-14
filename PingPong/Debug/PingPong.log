@@ -1,27 +1,20 @@
 ﻿  cManager.cpp
-D:\THOOP\PingPong\cManager.cpp(64,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(84,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(190,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(198,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(183,6): warning C4101: 'len': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(185,6): warning C4101: 'dir': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(182,15): warning C4101: 'paddleY': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(182,6): warning C4101: 'paddleX': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(235,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(241,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(248,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(254,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(257,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(270,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(382,20): warning C4018: '<': signed/unsigned mismatch
-  Item.cpp
-D:\THOOP\PingPong\cManager.cpp(456,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.h(30,9): error C2065: 'Item': undeclared identifier
-D:\THOOP\PingPong\cManager.h(30,14): error C2059: syntax error: '>'
-D:\THOOP\PingPong\Item.cpp(46,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Main.cpp
-  Generating Code...
-D:\THOOP\PingPong\Item.cpp(49,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(186): warning C4700: uninitialized local variable 'ballX' used
-D:\THOOP\PingPong\cManager.cpp(187): warning C4700: uninitialized local variable 'ballY' used
+D:\THOOP\PingPong\cManager.cpp(75,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\THOOP\PingPong\cManager.cpp(97,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\THOOP\PingPong\cManager.cpp(137,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(220,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(228,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(213,6): warning C4101: 'len': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(215,6): warning C4101: 'dir': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(212,15): warning C4101: 'paddleY': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(212,6): warning C4101: 'paddleX': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(299,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(305,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(312,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(318,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(321,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(326,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(330,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(338,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(447,20): warning C4018: '<': signed/unsigned mismatch
+  PingPong.vcxproj -> D:\THOOP\Debug\1712923_1712929_PingPong.exe

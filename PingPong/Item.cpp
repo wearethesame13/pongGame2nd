@@ -1,5 +1,5 @@
 #include "Item.h"
-
+#include "cManager.h"
 Item::Item(int x, int y) : x(x), y(y)
 {
 

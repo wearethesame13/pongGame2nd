@@ -13,7 +13,6 @@
 class cGameManager
 {
 private:
-	static const int MAX_NUMBERS_OF_BRICKS = 32;
 	static const int DELAY = 10;
 	static const int MAX_NUMBERS_OF_WALLS = 2;
 	float MULTIPLIER[3];
@@ -30,14 +29,16 @@ private:
 	vector<Item*>items;
 	vector<Brick*>bricks;
 	Level* level;
-	Wall *walls;
+	vector<Wall*>walls;
 public:
-	
+	cGameManager();
 	cGameManager(int w, int h);
 	~cGameManager();
 	void LoadSavedGame();
 	void SaveGame();
 	void Restart();
+	void renewItems();
+	void renewWall();
 	void setScore(int a);
 	int getScore();
 	void Draw();
@@ -47,6 +48,7 @@ public:
 	void PrintResult();
 	void Pause();
 	void Run1();
+
 };
 //hàm hỗ trợ Menu lua chon nguoi choi
 void Menu();

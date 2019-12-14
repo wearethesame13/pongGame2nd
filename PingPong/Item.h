@@ -1,7 +1,6 @@
 #ifndef __Item_h__
 #define __Item_h__
 #include "Ball.h"
-#include "cManager.h"
 class cGameManager;
 class Item
 {

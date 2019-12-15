@@ -171,6 +171,7 @@ void cGameManager::LoadSavedGame()
 		ball = new cBall(ballX, ballY);
 		ball->setDirection((eDir)dir);
 		int numBricks;
+		bricks.clear();
 		fileIn >> numBricks;
 		int brickX, brickY;
 		for (int i = 0; i < numBricks; i++)
@@ -184,6 +185,7 @@ void cGameManager::LoadSavedGame()
 			bricks.push_back(brick);
 		}
 		int itemNums;
+		items.clear();
 		fileIn >> itemNums;
 		int itemX, itemY;
 		for (int i = 0; i < itemNums; i++)
@@ -195,6 +197,7 @@ void cGameManager::LoadSavedGame()
 			items.push_back(item);
 		}
 		int wallNums;
+		walls.clear();
 		fileIn >> wallNums;
 		int wallX, wallY;
 		for (int i = 0; i < wallNums; i++)
@@ -205,6 +208,9 @@ void cGameManager::LoadSavedGame()
 			wall = new Wall(wallX, wallY);
 			walls.push_back(wall);
 		}
+		int loadscore;
+		fileIn >> loadscore;
+		score = loadscore;
 	}
 	fileIn.close();
 }
@@ -225,7 +231,7 @@ void cGameManager::SaveGame()
 	fileOut << ((int)ball->getDirection()) << endl;
 	fileOut << player1->getX() << endl;
 	fileOut << player1->getY() << endl;
-	fileOut << bricks.size();
+	fileOut << bricks.size() << endl;
 	for (int i = 0; i < bricks.size(); i++)
 	{
 		fileOut << bricks[i]->getX() << endl;
@@ -233,19 +239,19 @@ void cGameManager::SaveGame()
 		fileOut << bricks[i]->getLenght() << endl;
 		fileOut << bricks[i]->getLevel() << endl;
 	}
-	fileOut << items.size();
+	fileOut << items.size() << endl;
 	for (int i = 0; i < items.size(); i++)
 	{
 		fileOut << items[i]->getX() << endl;
 		fileOut << items[i]->getY() << endl;
 	}
-	fileOut << walls.size();
+	fileOut << walls.size() << endl;
 	for (int i = 0; i < walls.size(); i++)
 	{
 		fileOut << walls[i]->getX() << endl;
 		fileOut << walls[i]->getY() << endl;
-
 	}
+	fileOut << score << endl;
 	fileOut.close();
 }
 void cGameManager::Restart()
@@ -450,7 +456,6 @@ void  cGameManager::CheckInput1()
 			quit = true;
 		}	
 	}
-
 }
 
 void  cGameManager::PrintUI(int choose)
@@ -513,11 +518,12 @@ void cGameManager::Pause()
 	cout<<"1. Choi tiep."<<endl;
 	TextColor(10);
 	cout << "2. Luu va thoat game."<<endl;
-	TextColor(0);
+	TextColor(13);
 	int choose;
 	choose = Chon();
 	if (choose==1)
 	{
+		system("cls");
 		paused = false;
 	}
 	if (choose==2)
@@ -675,7 +681,6 @@ void cGameManager::Run1()
 	{
 		srand((unsigned int)time(NULL));
 		CheckInput1();
-		
 		Logic();
 		Draw();
 		PrintUI(1);

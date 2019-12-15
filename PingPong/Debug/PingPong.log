@@ -1,19 +1,19 @@
 ﻿  cManager.cpp
-D:\THOOP\PingPong\cManager.cpp(75,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(97,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(137,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(229,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(237,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(243,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(222,6): warning C4101: 'dir': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(341,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(347,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(354,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(360,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(363,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(368,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(372,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(380,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(448,18): warning C4129: 'e': unrecognized character escape sequence
-D:\THOOP\PingPong\cManager.cpp(497,20): warning C4018: '<': signed/unsigned mismatch
-  PingPong.vcxproj -> D:\THOOP\Debug\1712923_1712929_PingPong.exe
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(75,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(97,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(137,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(235,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(243,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(249,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(228,6): warning C4101:  'dir': unreferenced local variable
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(347,29): warning C4309:  'static_cast': truncation of constant value
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(353,29): warning C4309:  'static_cast': truncation of constant value
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(360,29): warning C4309:  'static_cast': truncation of constant value
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(366,29): warning C4309:  'static_cast': truncation of constant value
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(369,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(374,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(378,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(386,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(454,18): warning C4129:  'e': unrecognized character escape sequence
+C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\PingPong\cManager.cpp(502,20): warning C4018:  '<': signed/unsigned mismatch
+  PingPong.vcxproj -> C:\Users\leman\Downloads\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\pongGame2nd-c3e1be1f7cca917480b1bb812049e48fe4e58232\Debug\1712923_1712929_PingPong.exe

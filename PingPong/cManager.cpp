@@ -159,7 +159,6 @@ void cGameManager::LoadSavedGame()
 		fileIn >> dir;
 		fileIn >> paddleX;
 		fileIn >> paddleY;
-		level = new Level(LV);
 		if (player1!=NULL)
 		{
 			delete player1;
@@ -219,14 +218,13 @@ void cGameManager::SaveGame()
 		Sleep(2000);
 		return;
 	}
-	
-	int paddleX, paddleY;
-	int len;
-	int LV = 1;
+
 	int dir;
 	fileOut << ball->getX()<< endl;
 	fileOut << ball->getY() << endl;
 	fileOut << ((int)ball->getDirection()) << endl;
+	fileOut << player1->getX() << endl;
+	fileOut << player1->getY() << endl;
 	fileOut << bricks.size();
 	for (int i = 0; i < bricks.size(); i++)
 	{
@@ -246,6 +244,7 @@ void cGameManager::SaveGame()
 	{
 		fileOut << walls[i]->getX() << endl;
 		fileOut << walls[i]->getY() << endl;
+
 	}
 	fileOut.close();
 }
@@ -508,32 +507,23 @@ void cGameManager::PrintResult()
 void cGameManager::Pause()
 {
 	system("cls");
-	gotoxy(width + 5, 6);
 	TextColor(12);
-	cout << "Game tam dung!!!";
+	cout << "Game tam dung!!!" << endl;
 	TextColor(11);
-	gotoxy(width + 5, 7); 
-	cout<<"Nhan Escape de tiep tuc choi.";
+	cout<<"1. Choi tiep."<<endl;
 	TextColor(10);
-	gotoxy(width + 5, 8);
-	cout << "Nhan Enter de luu game.";
+	cout << "2. Luu va thoat game."<<endl;
 	TextColor(0);
-	if (_kbhit())
+	int choose;
+	choose = Chon();
+	if (choose==1)
 	{
-
-		fflush(stdin);
-		char current = _getch(); //nhan du lieu 
-		if (current == '\e')
-		{
-			paused = false;
-		}
-		if (current == '\n')
-		{
-			SaveGame();
-			gotoxy(width + 5, 9);
-			cout << "Luu game thanh cong.";
-			paused =  false;
-		}
+		paused = false;
+	}
+	if (choose==2)
+	{
+		SaveGame();
+		quit = true;
 	}
 }
 
@@ -685,13 +675,14 @@ void cGameManager::Run1()
 	{
 		srand((unsigned int)time(NULL));
 		CheckInput1();
+		
+		Logic();
+		Draw();
+		PrintUI(1);
 		if (paused == true)
 		{
 			Pause();
 		}
-		Logic();
-		Draw();
-		PrintUI(1);
 		Sleep(100);
 	}
 	PrintResult();

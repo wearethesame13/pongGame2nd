@@ -270,7 +270,7 @@ void cGameManager::SaveGame()
 void cGameManager::Restart()
 {
 	system("cls");
-	speed = originalSpeed;
+	speed =originalSpeed;
 	quit = false;
 	ball->Reset();
 	player1->Reset();
@@ -599,7 +599,6 @@ void cGameManager::Logic()
 				}
 			}
 		}
-		renewWall();
 	}
 	if (items.empty() == true)
 	{

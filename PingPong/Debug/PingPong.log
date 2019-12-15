@@ -1,26 +1,27 @@
-﻿  Item.cpp
-D:\THOOP\PingPong\Item.cpp(46,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Brick.cpp
+  Item.cpp
+D:\THOOP\PingPong\Item.cpp(50,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Main.cpp
   cManager.cpp
-D:\THOOP\PingPong\Item.cpp(49,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(76,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(98,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\THOOP\PingPong\cManager.cpp(138,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(246,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(254,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(260,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(238,6): warning C4101: 'dir': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(361,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(367,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(374,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(380,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(383,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(388,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(392,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(400,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(468,18): warning C4129: 'e': unrecognized character escape sequence
-D:\THOOP\PingPong\cManager.cpp(513,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(562,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\THOOP\PingPong\Item.cpp(53,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\THOOP\PingPong\cManager.cpp(78,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\THOOP\PingPong\cManager.cpp(100,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\THOOP\PingPong\cManager.cpp(140,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(248,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(256,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(240,6): warning C4101: 'dir': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(364,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(370,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(377,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(383,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(386,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(391,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(395,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(403,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(471,18): warning C4129: 'e': unrecognized character escape sequence
+D:\THOOP\PingPong\cManager.cpp(516,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(565,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   Generating Code...
-D:\THOOP\PingPong\cManager.cpp(564,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\THOOP\PingPong\cManager.cpp(567,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   PingPong.vcxproj -> D:\THOOP\Debug\1712923_1712929_PingPong.exe

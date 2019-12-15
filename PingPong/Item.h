@@ -15,6 +15,7 @@ public:
 	bool isTouchedBall(cBall* ball);
 	virtual void apply(cGameManager* game) = 0;
 	virtual void draw() = 0;
+	~Item();
 };
 
 class ScoreItem : public Item

@@ -30,6 +30,10 @@ bool Item::isTouchedBall(cBall* ball)
 	return false;
 }
 
+Item::~Item()
+{
+}
+
 ScoreItem::ScoreItem(int x, int y) :Item(x, y)
 {
 }

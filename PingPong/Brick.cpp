@@ -8,6 +8,10 @@ Brick::Brick(int x, int y, int length, int level) :
 	color[2] = 15;
 }
 
+Brick::~Brick()
+{
+}
+
 
 void Brick::draw()
 {

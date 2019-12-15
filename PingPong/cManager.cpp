@@ -252,10 +252,36 @@ void cGameManager::SaveGame()
 void cGameManager::Restart()
 {
 	system("cls");
+	quit = false;
 	ball->Reset();
 	player1->Reset();
+	renewBricks();
+	renewItems();
+	renewWall();
 	TextColor(0);
-	Draw();
+}
+void cGameManager::renewBricks()
+{
+	bricks.clear();
+	for (int i = 3; i <= 7; i++)
+	{
+			if (i % 2 == 0) continue;
+			for (int j = 3; j < width - 8; j += 8)
+			{
+				int isBrickCreate = rand() % 2;
+				if (isBrickCreate == 0) continue;
+
+				// random brickLevel
+				int brickLevel;
+
+				if (level->getLevel() == 1) brickLevel = rand() % 1;
+				else if (level->getLevel() == 2) brickLevel = rand() % 2;
+				else brickLevel = rand() % 3;
+
+				Brick* newBrick = new Brick(j, i, 7, brickLevel);
+				bricks.push_back(newBrick);
+			}
+	}
 }
 void cGameManager::renewItems()
 {
@@ -420,11 +446,10 @@ void  cGameManager::CheckInput1()
 
 		if (current == 'p' || current == 'P') //pause
 			paused = true;
-		if (current == 'esc')
+		if (current == '\e')
 		{
 			quit = true;
-		}
-		
+		}	
 	}
 
 }
@@ -478,8 +503,6 @@ void cGameManager::PrintResult()
 		}
 	}
 	cout << "HIGHSCORE IS: " << max << endl;
-	system("pause");
-	quit = true;
 }
 
 void cGameManager::Pause()
@@ -493,24 +516,23 @@ void cGameManager::Pause()
 	cout<<"Nhan Escape de tiep tuc choi.";
 	TextColor(10);
 	gotoxy(width + 5, 8);
-	cout << "Nhan Space de luu game.";
+	cout << "Nhan Enter de luu game.";
 	TextColor(0);
 	if (_kbhit())
 	{
 
 		fflush(stdin);
 		char current = _getch(); //nhan du lieu 
-		if (current == 27)
+		if (current == '\e')
 		{
-			
 			paused = false;
 		}
-		if (current == 32)
+		if (current == '\n')
 		{
 			SaveGame();
 			gotoxy(width + 5, 9);
 			cout << "Luu game thanh cong.";
-			paused = false;
+			paused =  false;
 		}
 	}
 }
@@ -580,7 +602,7 @@ void cGameManager::Logic()
 	// Xuat diem player
 	if (ball->getY() == height)
 	{
-		PrintResult();
+		quit = true;
 	}
 	for (int i = 0; i < (int)items.size(); i++)
 	{
@@ -659,18 +681,31 @@ void cGameManager::Run1()
 	Draw();
 	PrintUI(1);
 
-	while (true && !quit)
+	while (true && quit!= true)
 	{
 		srand((unsigned int)time(NULL));
 		CheckInput1();
+		if (paused == true)
+		{
+			Pause();
+		}
 		Logic();
 		Draw();
 		PrintUI(1);
 		Sleep(100);
-		if (paused==true)
-		{
-			Pause();
-		}
-		//PrintResult();
+	}
+	PrintResult();
+	cout << "1. Choi lai" << endl;
+	cout << "2. Thoat" << endl;
+	int choose;
+	choose = Chon();
+	if (choose==1)
+	{
+		Restart();
+		Run1();
+	}
+	if (choose==2)
+	{
+		return;
 	}
 }

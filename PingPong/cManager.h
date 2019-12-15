@@ -37,6 +37,7 @@ public:
 	void LoadSavedGame();
 	void SaveGame();
 	void Restart();
+	void renewBricks();
 	void renewItems();
 	void renewWall();
 	void setScore(int a);

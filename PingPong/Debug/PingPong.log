@@ -3,22 +3,25 @@
 D:\THOOP\PingPong\cManager.cpp(75,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\THOOP\PingPong\cManager.cpp(97,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 D:\THOOP\PingPong\cManager.cpp(137,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(220,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(228,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(213,6): warning C4101: 'len': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(215,6): warning C4101: 'dir': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(212,15): warning C4101: 'paddleY': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(212,6): warning C4101: 'paddleX': unreferenced local variable
-D:\THOOP\PingPong\cManager.cpp(299,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(305,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(312,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(318,29): warning C4309: 'static_cast': truncation of constant value
-D:\THOOP\PingPong\cManager.cpp(321,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(326,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(330,20): warning C4018: '<': signed/unsigned mismatch
-D:\THOOP\PingPong\cManager.cpp(338,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(231,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(239,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(245,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(224,6): warning C4101: 'len': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(226,6): warning C4101: 'dir': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(223,15): warning C4101: 'paddleY': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(223,6): warning C4101: 'paddleX': unreferenced local variable
+D:\THOOP\PingPong\cManager.cpp(342,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(348,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(355,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(361,29): warning C4309: 'static_cast': truncation of constant value
+D:\THOOP\PingPong\cManager.cpp(364,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(369,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(373,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(381,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(449,18): warning C4129: 'e': unrecognized character escape sequence
+D:\THOOP\PingPong\cManager.cpp(498,20): warning C4018: '<': signed/unsigned mismatch
   Item.cpp
-D:\THOOP\PingPong\cManager.cpp(456,20): warning C4018: '<': signed/unsigned mismatch
+D:\THOOP\PingPong\cManager.cpp(526,18): warning C4129: 'e': unrecognized character escape sequence
 D:\THOOP\PingPong\Item.cpp(46,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Level.cpp
   Main.cpp

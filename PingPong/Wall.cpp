@@ -5,6 +5,10 @@ Wall::Wall()
 	x = y = 0;
 }
 
+Wall::~Wall()
+{
+}
+
 Wall::Wall(int posX, int posY)
 {
 	x = posX;

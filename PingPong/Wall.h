@@ -7,6 +7,7 @@ private:
 public:
 	int wallLength = 7;
 	Wall();
+	~Wall();
 	Wall(int posX, int posY);
 	int getX();
 	int getY();

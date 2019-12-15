@@ -5,6 +5,9 @@ cPaddle::cPaddle()
 {
 	x = y = 0;
 }
+cPaddle::~cPaddle()
+{
+}
 cPaddle::cPaddle(int posX, int posY) : cPaddle()
 {
 	originalX = posX;

@@ -21,6 +21,7 @@ private:
 	int paddleLength;
 	int wallLength;
 	int brickLength;
+	int speed, originalSpeed;
 	bool paused;
 	char left1, right1;
 	bool quit;            // thoat game
@@ -34,6 +35,8 @@ public:
 	cGameManager();
 	cGameManager(int w, int h);
 	~cGameManager();
+	int getSpeed();
+	void setSpeed(int n);
 	void LoadSavedGame();
 	void SaveGame();
 	void Restart();
@@ -49,7 +52,7 @@ public:
 	void PrintResult();
 	void Pause();
 	void Run1();
-
+	
 };
 //hàm hỗ trợ Menu lua chon nguoi choi
 void Menu();

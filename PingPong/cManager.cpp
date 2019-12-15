@@ -52,7 +52,8 @@ cGameManager::cGameManager() {
 	player1 = new cPaddle(width / 2 - 4, height - 1);
 	ball = new cBall(width / 2 + 1, height - 2);
 	quit = false;
-
+	speed = 150;
+	originalSpeed = 150;
 	bricks.resize(0);
 	items.resize(0);
 	walls.resize(0);
@@ -62,6 +63,8 @@ cGameManager::cGameManager(int w, int h)
 	srand((unsigned int)time(NULL)); // thoi gian ngau nhien
 	quit = false;
 	left1 = 'a'; right1 = 'd';
+	speed = 150;
+	originalSpeed = 150;
 	score = 0;   // set diem player = 0
 	width = w; height = h;
 	level = new Level(2);
@@ -139,6 +142,14 @@ cGameManager::~cGameManager()
 		bricks[i]->~Brick();
 	}
 }
+int cGameManager::getSpeed()
+{
+	return speed;
+}
+void cGameManager::setSpeed(int n)
+{
+	speed = n;
+}
 void cGameManager::LoadSavedGame()
 {
 	ifstream fileIn("SaveGame.txt", ios::in);
@@ -149,6 +160,7 @@ void cGameManager::LoadSavedGame()
 	else
 	{
 		quit = false;
+		fileIn >> speed;
 		int ballX, ballY;
 		int paddleX, paddleY;
 		int len;
@@ -226,6 +238,7 @@ void cGameManager::SaveGame()
 	}
 
 	int dir;
+	fileOut << speed<<endl;
 	fileOut << ball->getX()<< endl;
 	fileOut << ball->getY() << endl;
 	fileOut << ((int)ball->getDirection()) << endl;
@@ -257,6 +270,7 @@ void cGameManager::SaveGame()
 void cGameManager::Restart()
 {
 	system("cls");
+	speed = originalSpeed;
 	quit = false;
 	ball->Reset();
 	player1->Reset();
@@ -270,7 +284,7 @@ void cGameManager::renewBricks()
 	bricks.clear();
 	for (int i = 3; i <= 7; i++)
 	{
-			if (i % 2 == 0) continue;
+		if (i % 3 == 0) {
 			for (int j = 3; j < width - 8; j += 8)
 			{
 				int isBrickCreate = rand() % 2;
@@ -286,6 +300,7 @@ void cGameManager::renewBricks()
 				Brick* newBrick = new Brick(j, i, 7, brickLevel);
 				bricks.push_back(newBrick);
 			}
+		}
 	}
 }
 void cGameManager::renewItems()
@@ -311,14 +326,16 @@ void cGameManager::renewWall()
 	walls.clear();
 	for (int i = 3; i <= 10; i++)
 	{
-		for (int j = 6; j < width - 10; j += 8)
+		if (i % 3 == 2)
 		{
-			int isWallCreate = rand() % 7;
-			if (isWallCreate < 6) continue;
-			
-			Wall* newWall;
-			newWall = new Wall(j, i);
-			walls.push_back(newWall);
+			for (int j = 6; j < width - 10; j += 8)
+			{
+				int isWallCreate = rand() % 7;
+				if (isWallCreate < 6) continue;
+				Wall* newWall;
+				newWall = new Wall(j, i);
+				walls.push_back(newWall);
+			}
 		}
 	}
 }
@@ -464,9 +481,6 @@ void  cGameManager::PrintUI(int choose)
 	gotoxy(width + 5, 5);
 	cout << "Player's score: " << score;
 	TextColor(12);
-	gotoxy(width + 5, 8);
-	cout << "Press ESC key to quit game"<<endl;
-	TextColor(11);
 	gotoxy(width + 5, 9);
 	cout << "Press P key to pause game";
 	gotoxy(width / 2 - 7, height + 3);
@@ -515,7 +529,7 @@ void cGameManager::Pause()
 	TextColor(12);
 	cout << "Game tam dung!!!" << endl;
 	TextColor(11);
-	cout<<"1. Choi tiep."<<endl;
+	cout << "1. Choi tiep." << endl;
 	TextColor(10);
 	cout << "2. Luu va thoat game."<<endl;
 	TextColor(13);
@@ -543,9 +557,15 @@ void cGameManager::Logic()
 	int player1x = player1->getX();
 	int player1y = player1->getY();
 	if (bally == player1y -1)   //neu ball canh benh player
-	if (ballx >= player1x - paddleLength/2 && ballx <= player1x +paddleLength/2)
-		//ball->changeDirection((eDir)((rand() % 3) + 4)); //chuyen huong bong sang vi tri ngau nhien qua phai
-		ball->changeDirection(ball->getDirection() == DOWNLEFT ? UPLEFT : UPRIGHT);
+		if (ballx >= player1x - paddleLength / 2 && ballx <= player1x + paddleLength / 2)
+		{
+			//ball->changeDirection((eDir)((rand() % 3) + 4)); //chuyen huong bong sang vi tri ngau nhien qua phai
+			ball->changeDirection(ball->getDirection() == DOWNLEFT ? UPLEFT : UPRIGHT);
+			if (speed < 60)
+				speed = 1.5 * speed;
+			else
+				speed = 0.9 * speed;
+		}
 	//top wall
 	if (bally == 1)
 		ball->changeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
@@ -561,41 +581,44 @@ void cGameManager::Logic()
 	{
 		for (int i = 3; i <= 7; i++)
 		{
-			if (i % 2 == 0) continue;
-			for (int j = 3; j < width - 8; j += 8)
-			{
-				int isBrickCreate = rand() % 2;
-				if (isBrickCreate == 0) continue;
+			if (i % 3 == 0) {
+				for (int j = 3; j < width - 8; j += 8)
+				{
+					int isBrickCreate = rand() % 2;
+					if (isBrickCreate == 0) continue;
 
-				// random brickLevel
-				int brickLevel;
+					// random brickLevel
+					int brickLevel;
 
-				if (level->getLevel() == 1) brickLevel = rand() % 1;
-				else if (level->getLevel() == 2) brickLevel = rand() % 2;
-				else brickLevel = rand() % 3;
+					if (level->getLevel() == 1) brickLevel = rand() % 1;
+					else if (level->getLevel() == 2) brickLevel = rand() % 2;
+					else brickLevel = rand() % 3;
 
-				Brick* newBrick = new Brick(j, i, 7, brickLevel);
-				bricks.push_back(newBrick);
+					Brick* newBrick = new Brick(j, i, 7, brickLevel);
+					bricks.push_back(newBrick);
+				}
 			}
 		}
+		renewWall();
 	}
 	if (items.empty() == true)
 	{
 		for (int i = 3; i <= 7; i++)
 		{
-			if (i % 2 == 0) continue;
-			for (int j = 3; j < width - 8; j += 8)
-			{
-				int isItemCreate = rand() % 2;
-				if (isItemCreate == 0) continue;
+			if (i % 3 == 1) {
+				for (int j = 3; j < width - 8; j += 8)
+				{
+					int isItemCreate = rand() % 2;
+					if (isItemCreate == 0) continue;
 
-				
-				Item* newItem = new ScoreItem(j, i);
-				items.push_back(newItem);
+
+					Item* newItem = new ScoreItem(j, i);
+					items.push_back(newItem);
+				}
 			}
 		}
 	}
-	// Xuat diem player
+	// Cham canh duoi
 	if (ball->getY() == height)
 	{
 		quit = true;
@@ -688,7 +711,7 @@ void cGameManager::Run1()
 		{
 			Pause();
 		}
-		Sleep(100);
+		Sleep(speed);
 	}
 	PrintResult();
 	cout << "1. Choi lai" << endl;

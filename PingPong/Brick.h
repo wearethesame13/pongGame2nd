@@ -15,6 +15,7 @@ private:
 	int color[3];
 public:
 	Brick(int x, int y, int length, int level);
+	~Brick();
 	void draw();
 	void erase();
 	bool processTouchBall(cBall* ball);

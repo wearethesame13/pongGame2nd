@@ -10,6 +10,7 @@ private:
 public:
 	int paddlelength;
 	cPaddle();
+	~cPaddle();
 	cPaddle(int posX, int posY);
 	void Reset();
 	int getX();
